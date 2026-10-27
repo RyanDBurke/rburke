@@ -1,0 +1,24 @@
+* { box-sizing: border-box; }
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #8e9161;
+  color: #FDFBD4;
+  font-family: 'Playfair Display Variable', Georgia, serif;
+}
+
+/* Each page section fills the screen and is a snap point. */
+main > section {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 1rem;
+  scroll-snap-align: start;
+  position: relative;
+  /* Stops things like flying photo cards from widening the page sideways. */
+  overflow-x: clip;
+}

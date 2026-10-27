@@ -1,0 +1,37 @@
+# Ryan Burke
+
+> Ryan Burke is a software engineer, film photographer, occasional oil pastel artist, basketball junkie, and twenty-handicap golfer. This is Ryan's personal site.
+
+## About
+
+Ryan is a senior software engineer based on the US east coast who architects thoughtfully-designed software systems. Outside of work: basketball, film photography, oil pastels, golf (not well), and chilling out with Ryan's dog and wife.
+
+- [About](https://rburke.dev/#about)
+
+## Experience
+
+### Senior Software Engineer at DealerOn (Feb 2021 – Present)
+
+Tech: .NET, C#, Azure, SQL Server, RabbitMQ, Redis, Claude
+
+Architects and maintains scalable automotive software solutions for 4,000+ dealerships in North America.
+
+### IT Technician at University of Maryland, Division of IT (Sept 2019 – Jan 2021)
+
+Skills: Problem-solving, Documentation, Remote Tooling, Windows, Linux, macOS
+
+College gig installing, diagnosing, and repairing hardware and software for students and staff.
+
+- [Experience](https://rburke.dev/#experience)
+
+## Photography
+
+Ryan shoots film. The site shows a swipeable deck of Ryan's film photos, including portraits and travel shots from Arizona, France, Madrid, Sevilla, and the West Village.
+
+- [Photography](https://rburke.dev/#photography)
+
+## Links
+
+- [Website](https://rburke.dev)
+- [GitHub](https://github.com/RyanDBurke)
+- [LinkedIn](https://www.linkedin.com/in/ryanburke77/)
