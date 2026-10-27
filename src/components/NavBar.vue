@@ -121,16 +121,25 @@ a {
   transition: transform 0.5s ease;
 }
 
+/* Two columns shared by every row, so the labels line up however wide each act number is. */
 .menu ul {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 1rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+.menu li {
+  display: contents;
+}
+
 .menu a {
-  display: flex;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
   align-items: baseline;
-  gap: 1rem;
   font-size: clamp(2.5rem, 8vw, 5rem);
   line-height: 1.2;
 }
