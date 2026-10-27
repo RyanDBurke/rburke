@@ -7,14 +7,14 @@ const jobs = [
     title: 'Senior Software Engineer',
     company: 'DealerOn',
     dates: 'Feb 2021 – Present',
-    tech: '.NET | C# | Azure | SQL Server | RabbitMq | Redis | Claude',
+    tech: ['.NET', 'C#', 'Azure', 'SQL Server', 'RabbitMq', 'Redis', 'Claude'],
     description: 'Cool job where I architect and maintain scalable automotive software solutions for 4,000+ dealerships in North America.',
   },
   {
     title: 'IT Technician',
     company: 'University of Maryland, Division of IT',
     dates: 'Sept 2019 – Jan 2021',
-    tech: 'Problem-solving | Documentation | Remote Tooling | Windows | Linux | MacOS',
+    tech: ['Problem-solving', 'Documentation', 'Remote Tooling', 'Windows', 'Linux', 'MacOS'],
     description: "College gig where I'd install, diagnose, or repair hardware/software for students and staff",
   },
 ]
@@ -47,8 +47,8 @@ onUnmounted(() => observer?.disconnect())
           {{ job.title }} <span class="company">at {{ job.company }}</span>
         </h3>
         <p class="fade meta" :style="{ '--i': j * 4 + 1 }">{{ job.dates }}</p>
-        <p class="fade meta" :style="{ '--i': j * 4 + 2 }">{{ job.tech }}</p>
-        <p class="fade description" :style="{ '--i': j * 4 + 3 }">{{ job.description }}</p>
+        <p class="fade description" :style="{ '--i': j * 4 + 2 }">{{ job.description }}</p>
+        <p class="fade meta tech" :style="{ '--i': j * 4 + 3 }">{{ job.tech.join(' · ') }}</p>
       </div>
     </div>
     <ScrollCue target="photography" />
@@ -96,8 +96,12 @@ h3 {
 
 .description {
   margin: 1.25rem 0 0;
-  font-size: min(max(0.9rem, 1.5vw), 2.3dvh);
+  font-size: min(max(1rem, 1.65vw), 2.55dvh);
   line-height: 1.5;
+}
+
+.tech {
+  margin-top: 0.75rem;
 }
 
 @media (max-width: 767px) {
@@ -114,7 +118,7 @@ h3 {
   }
 
   .description {
-    font-size: 4.6vw;
+    font-size: 5vw;
   }
 }
 

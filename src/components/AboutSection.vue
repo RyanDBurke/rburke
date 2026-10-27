@@ -6,16 +6,16 @@ import ScrollCue from './ScrollCue.vue'
   <section id="about">
     <div>
       <p>
-        I'm Ryan
-        <a href="https://www.linkedin.com/in/ryanburke77/" target="_blank" rel="noopener noreferrer"><img
-          class="inline-pic" src="/images/me.png" alt="Ryan on LinkedIn" width="773" height="977"></a>,
-        a senior software engineer based on the east coast.<br><br>
-        Professionally, I architect thoughtfully-designed software systems.<br><br>
-        Leisurely, I play basketball, take film pics, mess around with oil pastels,
-        golf (not well), and chill out with my dog
-        <img class="inline-pic" src="/images/bean.png" alt="" width="758" height="720">
-        and wife
-        <img class="inline-pic" src="/images/wife.png" alt="" width="944" height="1120">
+        <!-- Spaces between tags stay on one line; Vue drops whitespace that contains a line break. -->
+        <span class="lead">I'm Ryan</span> <a href="https://www.linkedin.com/in/ryanburke77/" target="_blank"
+          rel="noopener noreferrer"><img class="inline-pic" src="/images/me.png" alt="Ryan on LinkedIn" width="773"
+          height="977"></a><span class="muted">, a senior software engineer based on the east coast.</span><br><br>
+        <span class="lead">Professionally,</span> <span class="muted">I architect thoughtfully-designed software
+          systems.</span><br><br>
+        <span class="lead">For fun,</span> <span class="muted">I play basketball, take film pics, mess around with
+          oil pastels, golf (not well), and chill out with my dog</span> <img class="inline-pic"
+          src="/images/bean.png" alt="" width="758" height="720"> <span class="muted">and wife</span> <img
+          class="inline-pic" src="/images/wife.png" alt="" width="944" height="1120">
       </p>
     </div>
     <ScrollCue target="experience" />
@@ -38,6 +38,16 @@ p {
   font-size: min(max(1rem, 2.25vw), 3.9dvh);
   line-height: 1.4;
   text-align: left;
+}
+
+/* The opening words of each paragraph stand out from the rest. */
+.lead {
+  font-size: 1.15em;
+}
+
+.muted {
+  font-size: 0.85em;
+  opacity: 0.7;
 }
 
 /* Small pictures that sit in the line of text, about as tall as the letters. */
