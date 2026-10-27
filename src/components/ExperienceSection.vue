@@ -6,14 +6,12 @@ const jobs = [
   {
     title: 'Senior Software Engineer',
     company: 'DealerOn',
-    dates: 'Feb 2021 – Present',
-    tech: ['.NET', 'C#', 'Azure', 'SQL Server', 'RabbitMq', 'Redis', 'Claude'],
+    tech: ['.NET', 'C#', 'TypeScript', 'VueJs', 'Azure', 'SQL', 'RabbitMQ', 'Redis', 'Claude'],
     description: 'Cool job where I architect and maintain scalable automotive software solutions for 4,000+ dealerships in North America.',
   },
   {
     title: 'IT Technician',
     company: 'University of Maryland, Division of IT',
-    dates: 'Sept 2019 – Jan 2021',
     tech: ['Problem-solving', 'Documentation', 'Remote Tooling', 'Windows', 'Linux', 'MacOS'],
     description: "College gig where I'd install, diagnose, or repair hardware/software for students and staff",
   },
@@ -39,16 +37,15 @@ onUnmounted(() => observer?.disconnect())
 
 <template>
   <section id="experience" ref="section" :class="{ visible }">
-    <!-- Each job gets 4 fade steps, so the second job fades in after the first. -->
+    <!-- Each job gets 3 fade steps, so the second job fades in after the first. -->
     <div class="jobs">
       <div v-for="(job, j) in jobs" :key="job.title" class="job">
-        <hr v-if="j > 0" class="fade" :style="{ '--i': j * 4 }">
-        <h3 class="fade" :style="{ '--i': j * 4 }">
+        <hr v-if="j > 0" class="fade" :style="{ '--i': j * 3 }">
+        <h3 class="fade" :style="{ '--i': j * 3 }">
           {{ job.title }} <span class="company">at {{ job.company }}</span>
         </h3>
-        <p class="fade meta" :style="{ '--i': j * 4 + 1 }">{{ job.dates }}</p>
-        <p class="fade description" :style="{ '--i': j * 4 + 2 }">{{ job.description }}</p>
-        <p class="fade meta tech" :style="{ '--i': j * 4 + 3 }">{{ job.tech.join(' · ') }}</p>
+        <p class="fade description" :style="{ '--i': j * 3 + 1 }">{{ job.description }}</p>
+        <p class="fade meta tech" :style="{ '--i': j * 3 + 2 }">{{ job.tech.join(' · ') }}</p>
       </div>
     </div>
     <ScrollCue target="photography" />
