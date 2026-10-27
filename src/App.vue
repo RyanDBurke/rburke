@@ -1,15 +1,16 @@
-* { box-sizing: border-box; }
+<template>
+  <main>
+    <h1>sup, im ryan</h1>
+  </main>
+</template>
 
-body {
-  margin: 0;
+<style scoped>
+main {
   min-height: 100vh;
   min-height: 100dvh;
   display: grid;
   place-items: center;
   padding: 1rem;
-  background: #FDFBD4;
-  color: #000;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 h1 {
@@ -18,3 +19,4 @@ h1 {
   letter-spacing: -0.03em;
   text-align: center;
 }
+</style>
