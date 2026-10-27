@@ -182,6 +182,8 @@ section {
   z-index: 1000;
   width: clamp(3rem, 20%, 5rem);
   overflow: visible;
+  /* Muted, so it hints without competing with the photo. */
+  opacity: 0.75;
   /* The black outline keeps the white hand readable on light photos; the shadow lifts it and the burst off dark ones. */
   filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
   pointer-events: none;
