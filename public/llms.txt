@@ -1,10 +1,10 @@
 # Ryan Burke
 
-> Ryan Burke is a software engineer, film photographer, occasional oil pastel artist, basketball junkie, and twenty-handicap golfer. This is Ryan's personal site.
+> Ryan Burke is a software engineer, film photographer, oil pastel painter, basketball junkie, and twenty-handicap golfer. Also: sushi enjoyer, Morir Soñando drinker, chai consumer, Birkenstocks owner, Frank Ocean listener, and Diddy Kong main. This is Ryan's personal site.
 
 ## About
 
-Ryan is a senior software engineer based on the US east coast who architects thoughtfully-designed software systems. Outside of work: basketball, film photography, oil pastels, golf (not well), and chilling out with Ryan's dog and wife.
+Ryan is a senior software engineer living on the US east coast who architects thoughtfully-designed software systems. Outside of work: basketball, film photography, oil pastels, golf (not well), and chilling out with Ryan's dog and wife.
 
 - [About](https://rburke.dev/#about)
 

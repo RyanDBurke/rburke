@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ScrollCue from './ScrollCue.vue'
+import { vReveal } from '../reveal'
 
 const links = [
   { href: 'mailto:ryanburketv@gmail.com', icon: '/icons/email.png', label: 'Email Ryan' },
@@ -14,6 +15,7 @@ const open = ref(false)
 <template>
   <section id="contact">
     <div
+      v-reveal
       class="folder-scene"
       :class="{ open }"
       role="button"
