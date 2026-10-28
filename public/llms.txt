@@ -26,7 +26,7 @@ College gig installing, diagnosing, and repairing hardware and software for stud
 
 ## Photography
 
-Ryan shoots film. The site shows a swipeable deck of Ryan's film photos, including portraits and travel shots from Arizona, France, Madrid, Sevilla, and the West Village.
+Ryan shoots film. The site shows a swipeable deck of Ryan's film photos, including portraits, a couple's shoot, a paddleboarder at sunset, and travel shots from Arizona, France, Madrid, and Sevilla.
 
 - [Photography](https://rburke.dev/#photography)
 
