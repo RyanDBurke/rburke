@@ -5,6 +5,7 @@ import { vReveal } from '../reveal'
 
 const links = [
   { href: 'mailto:ryanburketv@gmail.com', icon: '/icons/email.png', label: 'Email Ryan' },
+  { href: '/RyanBurkeResume.pdf', icon: '/icons/resume.png', label: 'Download Ryan\'s resume', download: 'RyanBurkeResume.pdf' },
   { href: 'https://www.linkedin.com/in/ryanburke77/', icon: '/icons/linkedin.png', label: 'Ryan on LinkedIn' },
 ]
 
@@ -44,6 +45,7 @@ const open = ref(false)
           :aria-label="link.label"
           :tabindex="open ? 0 : -1"
           :target="link.href.startsWith('http') ? '_blank' : undefined"
+          :download="link.download"
           rel="noopener noreferrer"
           @click.stop
         >
@@ -132,7 +134,6 @@ section {
   width: 100%;
   height: 100%;
 }
-
 /* Closed: icons tucked in the folder, slightly fanned. */
 .file-1 {
   transform: translateX(calc(-50% - 1em)) translateY(-0.6em) rotate(-6deg) scale(0.95);
@@ -140,9 +141,15 @@ section {
 }
 
 .file-2 {
-  transform: translateX(calc(-50% + 1em)) translateY(-0.4em) rotate(6deg) scale(0.95);
+  transform: translateX(-50%) translateY(-0.8em) scale(0.95);
   z-index: 4;
   transition-delay: 0.04s;
+}
+
+.file-3 {
+  transform: translateX(calc(-50% + 1em)) translateY(-0.4em) rotate(6deg) scale(0.95);
+  z-index: 5;
+  transition-delay: 0.08s;
 }
 
 /* Open: icons rise out and fan apart. Their bottoms stay over the folder so the hover isn't lost on the way up. */
@@ -151,11 +158,15 @@ section {
 }
 
 .folder-scene.open .file-1 {
-  transform: translateX(calc(-50% - 3.6em)) translateY(-5em) rotate(-10deg) scale(1.05);
+  transform: translateX(calc(-50% - 5em)) translateY(-4.6em) rotate(-12deg) scale(1.05);
 }
 
 .folder-scene.open .file-2 {
-  transform: translateX(calc(-50% + 3.6em)) translateY(-5em) rotate(10deg) scale(1.05);
+  transform: translateX(-50%) translateY(-5.6em) scale(1.05);
+}
+
+.folder-scene.open .file-3 {
+  transform: translateX(calc(-50% + 5em)) translateY(-4.6em) rotate(12deg) scale(1.05);
 }
 
 /* The flap starts slightly open and tips further forward when the folder opens. */
@@ -177,11 +188,15 @@ section {
   }
 
   .folder-scene:hover .file-1 {
-    transform: translateX(calc(-50% - 3.6em)) translateY(-5em) rotate(-10deg) scale(1.05);
+    transform: translateX(calc(-50% - 5em)) translateY(-4.6em) rotate(-12deg) scale(1.05);
   }
 
   .folder-scene:hover .file-2 {
-    transform: translateX(calc(-50% + 3.6em)) translateY(-5em) rotate(10deg) scale(1.05);
+    transform: translateX(-50%) translateY(-5.6em) scale(1.05);
+  }
+
+  .folder-scene:hover .file-3 {
+    transform: translateX(calc(-50% + 5em)) translateY(-4.6em) rotate(12deg) scale(1.05);
   }
 
   .folder-scene:hover .folder-front {
