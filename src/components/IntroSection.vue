@@ -1,5 +1,28 @@
 <script setup lang="ts">
 import ScrollCue from './ScrollCue.vue'
+
+const roles = [
+  { text: 'Software Engineer' },
+  { text: 'Film Photographer' },
+  { text: 'Oil Pastel Art Painter', note: '(sometimes)' },
+  { text: 'Basketball Junkie' },
+  { text: 'Twenty Handicap Golfer' },
+  { text: 'Sushi Enjoyer' },
+  { text: 'Baggy Jeans Wearer' },
+  { text: 'Chai Consumer' },
+  { text: 'Birkenstocks Owner' },
+  { text: 'Frank Ocean Listener' },
+  { text: 'Diddy Kong Main' },
+]
+
+// Each descriptor fades in after the previous one, a little fainter each time.
+const start = 0.4
+const step = 0.6
+const duration = 1.2
+const roleStyle = (i: number) => ({
+  opacity: 0.9 - (i * 0.75) / (roles.length - 1),
+  animationDelay: `${start + i * step}s`,
+})
 </script>
 
 <template>
@@ -7,15 +30,13 @@ import ScrollCue from './ScrollCue.vue'
     <div>
       <h1>Ryan Burke</h1>
       <ul class="roles">
-        <li>Software Engineer</li>
-        <li>Film Photographer</li>
-        <li>Oil Pastel Art Maker <sup>(sometimes)</sup></li>
-        <li>Basketball Junkie</li>
-        <li>Twenty Handicap Golfer</li>
+        <li v-for="(role, i) in roles" :key="role.text" :style="roleStyle(i)">
+          {{ role.text }}<template v-if="role.note"> <sup>{{ role.note }}</sup></template>
+        </li>
       </ul>
     </div>
     <!-- Waits for the descriptors to finish fading in. -->
-    <ScrollCue target="about" :delay="4" />
+    <ScrollCue target="about" :delay="start + (roles.length - 1) * step + duration" />
   </section>
 </template>
 
@@ -52,16 +73,10 @@ h1 {
   line-height: 0;
 }
 
-/* Each descriptor fades in after the previous one, a little fainter each time. */
+/* Timing and fading are set per descriptor in the script. */
 .roles li {
   animation: fade-in 1.2s ease backwards;
 }
-
-.roles li:nth-child(1) { opacity: 0.9; animation-delay: 0.4s; }
-.roles li:nth-child(2) { opacity: 0.75; animation-delay: 1.0s; }
-.roles li:nth-child(3) { opacity: 0.6; animation-delay: 1.6s; }
-.roles li:nth-child(4) { opacity: 0.45; animation-delay: 2.2s; }
-.roles li:nth-child(5) { opacity: 0.3; animation-delay: 2.8s; }
 
 @keyframes fade-in {
   from { opacity: 0; }

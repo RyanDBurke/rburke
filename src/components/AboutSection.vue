@@ -10,7 +10,7 @@ import { vReveal } from '../reveal'
         <!-- Spaces between tags stay on one line; Vue drops whitespace that contains a line break. -->
         <span class="lead">I'm Ryan</span> <a href="https://www.linkedin.com/in/ryanburke77/" target="_blank"
           rel="noopener noreferrer"><img class="inline-pic" src="/images/me.png" alt="Ryan on LinkedIn" width="773"
-          height="977"></a><span class="muted">, a senior software engineer based on the east coast.</span><br><br>
+          height="977"></a><span class="muted">, a senior software engineer living on the east coast.</span><br><br>
         <span class="lead">Professionally,</span> <span class="muted">I architect thoughtfully-designed software
           systems.</span><br><br>
         <span class="lead">For fun,</span> <span class="muted">I play basketball, take film pics, mess around with
