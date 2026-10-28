@@ -7,7 +7,7 @@ const props = withDefaults(defineProps<{
   delay?: number
 }>(), {
   label: 'scroll down ↓',
-  delay: 1,
+  delay: 0,
 })
 
 const el = ref<HTMLElement>()

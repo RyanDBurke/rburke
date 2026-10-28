@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import ScrollCue from './ScrollCue.vue'
+import { vReveal } from '../reveal'
 
 // Every image in src/assets/photography, in file-name order. Drop a photo in that folder to add it.
 const files = import.meta.glob<string>('../assets/photography/*.{jpg,jpeg,png,webp}', {
@@ -89,6 +90,7 @@ const topAlt = computed(() => photos[order.value[0]].alt)
 <template>
   <section id="photography">
     <div
+      v-reveal
       class="deck"
       role="button"
       tabindex="0"
@@ -155,6 +157,8 @@ section {
   /* Horizontal drags swipe the deck; vertical drags still scroll the page. */
   touch-action: pan-y;
   user-select: none;
+  /* Keeps the cards' z-index stacking inside the deck, so they pass under the floating nav. */
+  isolation: isolate;
 }
 
 .deck:active {

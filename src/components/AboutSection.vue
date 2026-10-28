@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import ScrollCue from './ScrollCue.vue'
+import { vReveal } from '../reveal'
 </script>
 
 <template>
   <section id="about">
-    <div>
+    <div v-reveal>
       <p>
         <!-- Spaces between tags stay on one line; Vue drops whitespace that contains a line break. -->
         <span class="lead">I'm Ryan</span> <a href="https://www.linkedin.com/in/ryanburke77/" target="_blank"

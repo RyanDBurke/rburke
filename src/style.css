@@ -1,7 +1,6 @@
 * { box-sizing: border-box; }
 
 html {
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
 }
 
@@ -12,13 +11,31 @@ body {
   font-family: 'Playfair Display Variable', Georgia, serif;
 }
 
-/* Each page section fills the screen and is a snap point. */
+/* Each page section fills the screen. */
 main > section {
   min-height: 100vh;
-  min-height: 100dvh;
+  /* The small-viewport height doesn't change as the phone's address bar shows and hides,
+     so sections don't resize mid-scroll. */
+  min-height: 100svh;
   padding: 1rem;
-  scroll-snap-align: start;
   position: relative;
   /* Stops things like flying photo cards from widening the page sideways. */
   overflow-x: clip;
+}
+
+/* Content that fades in as it scrolls into view (see reveal.ts). */
+.reveal {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { transform: none; transition: opacity 0.4s ease; }
 }
