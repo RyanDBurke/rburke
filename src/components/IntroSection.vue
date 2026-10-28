@@ -1,51 +1,88 @@
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref } from 'vue'
 import ScrollCue from './ScrollCue.vue'
 
 const roles = [
   { text: 'Software Engineer' },
   { text: 'Film Photographer' },
-  { text: 'Oil Pastel Art Painter', note: '(sometimes)' },
+  { text: 'Oil Pastel Art Painter' },
   { text: 'Basketball Junkie' },
   { text: 'Twenty Handicap Golfer' },
   { text: 'Sushi Enjoyer' },
-  { text: 'Baggy Jeans Wearer' },
+  { text: 'Morir Soñando Drinker' },
   { text: 'Chai Consumer' },
   { text: 'Birkenstocks Owner' },
   { text: 'Frank Ocean Listener' },
   { text: 'Diddy Kong Main' },
 ]
 
-// Each descriptor fades in after the previous one, a little fainter each time.
-const start = 0.4
-const step = 0.6
-const duration = 1.2
-const roleStyle = (i: number) => ({
-  opacity: 0.9 - (i * 0.75) / (roles.length - 1),
-  animationDelay: `${start + i * step}s`,
+// How far (in svh) the page scrolls per descriptor while the intro stays pinned.
+const scrollPerRole = 12
+
+// Each descriptor is a little fainter than the one above it.
+const roleOpacity = (i: number) => 0.9 - (i * 0.75) / (roles.length - 1)
+
+// The first descriptor shows on load; scrolling through the pinned intro reveals the rest,
+// and scrolling back up hides them again.
+const section = ref<HTMLElement>()
+const shown = ref(1)
+
+function update() {
+  const el = section.value!
+  const scrolled = -el.getBoundingClientRect().top
+  const perRole = (el.offsetHeight - window.innerHeight) / roles.length
+  shown.value = Math.min(roles.length, Math.max(1, 1 + Math.floor(scrolled / perRole)))
+}
+
+onMounted(() => {
+  update()
+  window.addEventListener('scroll', update, { passive: true })
+  window.addEventListener('resize', update)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', update)
+  window.removeEventListener('resize', update)
 })
 </script>
 
 <template>
-  <section id="intro">
-    <div>
-      <h1>Ryan Burke</h1>
-      <ul class="roles">
-        <li v-for="(role, i) in roles" :key="role.text" :style="roleStyle(i)">
-          {{ role.text }}<template v-if="role.note"> <sup>{{ role.note }}</sup></template>
-        </li>
-      </ul>
+  <section id="intro" ref="section" :style="{ height: `calc(100svh + ${roles.length * scrollPerRole}svh)` }">
+    <!-- Stays on screen while the section scrolls past underneath it. -->
+    <div class="stage">
+      <div>
+        <h1>Ryan Burke</h1>
+        <ul class="roles">
+          <li
+            v-for="(role, i) in roles"
+            :key="role.text"
+            :class="{ shown: i < shown }"
+            :style="{ '--opacity': roleOpacity(i) }"
+          >
+            {{ role.text }}
+          </li>
+        </ul>
+      </div>
+      <!-- Waits for the first descriptor to fade in. -->
+      <ScrollCue target="about" :delay="1.6" />
     </div>
-    <!-- Waits for the descriptors to finish fading in. -->
-    <ScrollCue target="about" :delay="start + (roles.length - 1) * step + duration" />
   </section>
 </template>
 
 <style scoped>
 section {
-  display: grid;
-  place-items: center;
+  padding: 0;
   background: #7d2011;
   text-align: center;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
 }
 
 h1 {
@@ -68,14 +105,18 @@ h1 {
   .roles { font-size: 1.375rem; }
 }
 
-.roles sup {
-  font-size: 0.5em;
-  line-height: 0;
+.roles li {
+  opacity: 0;
+  transition: opacity 1.2s ease;
 }
 
-/* Timing and fading are set per descriptor in the script. */
-.roles li {
-  animation: fade-in 1.2s ease backwards;
+.roles li.shown {
+  opacity: var(--opacity);
+}
+
+/* The first descriptor fades in as soon as the page loads. */
+.roles li:first-child {
+  animation: fade-in 1.2s ease 0.4s backwards;
 }
 
 @keyframes fade-in {
@@ -83,6 +124,7 @@ h1 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .roles li { animation: none; }
+  .roles li { transition: none; }
+  .roles li:first-child { animation: none; }
 }
 </style>
