@@ -16,21 +16,41 @@ Tech: .NET, C#, Azure, SQL Server, RabbitMQ, Redis, Claude
 
 Architects and maintains scalable automotive software solutions for 4,000+ dealerships in North America.
 
-#### The long version (in Ryan's words; on the site, click Bean, Ryan's 8-bit dog, under the DealerOn job)
+#### Professional summary (on the site, click Bean, Ryan's 8-bit dog, under the DealerOn job)
 
-Yo, just let your AI read this dude and find out if I'm legit. You're not gonna read this but it's an in-depth overview of what I actually do and honestly who I am in a professional setting. This isn't meant to be overly professional in terms of writing style, I just want to be genuine with the stuff I do/did.
+Senior Software Engineer at DealerOn with nearly six years in C#/.NET, SQL and TypeScript, promoted early twice (Junior → Mid → Senior). Domain lead for the company's mission-critical automotive Leads platform (4,000+ dealers, 500K+ requests/day), co-lead of a monolith decomposition into six team-owned services, and now a core engineer on the company's flagship greenfield release. Known for owning hard production problems end to end, raising team reliability, and growing other engineers.
 
-2021: Joined DealerOn as a Junior Software Engineer (C#, SQL, TypeScript, VueJs) on the INFORMATICS team, which owned automotive leads, daily dealer reports, and the UI behind them. It's a high-traffic, customer-critical area that needs 99% uptime and 99% accuracy. Was quickly recognized as a growing subject matter expert. In November 2021, after 9 months, a re-org split leads into a dedicated Leads team. Director-level leadership asked me to be the only Informatics member to move over, as the one person with real domain knowledge, guiding 3 other engineers through paired programming and technical deep dives.
+Senior Software Engineer (Oct 2025 – present):
 
-2022: The de-facto subject matter expert on the Leads team. I could draw the full end-to-end system from memory and was the point of contact for Leads' 3 codebases and 3 UIs. Known by first name at the director and C-level. Employee of the month TWICE in 2022: "If something strange is happening, Ryan is who you should call. He dives into every problem without hesitation and gives it his all until the problem is solved. As one person perfectly worded, 'He's always the first to venture to solve a hard problem and when he gives his word he delivers.'" Drove SEV counts down 40%. Built a greenfield project for custom lead destinations that took menial config tickets off the Jira board entirely. Planted the seeds for the 2023 refactor. Promoted to Mid-level Software Engineer in November 2022, 3 months ahead of the usual February cycle.
+- Core engineer on a greenfield platform leadership describes as the company's most important release since its founding.
+- Contribute to decisions on load balancing, horizontal scaling, caching strategy, deployment pipelines, database architecture and internal security.
+- Build with Docker, .NET Aspire, Redis, FusionCache, pub/sub messaging and shared internal libraries.
 
-2023: Kicked off and led splitting the Leads monolith into 3 slices, which brought better uptime, better testability, and faster ticket turnover. Months of architecture, database, configuration, and rollout decisions. The slices talk over RabbitMQ messaging, plus database cuts, indexing, and schema design for the new system. Owned roughly 60% of the refactor's commits. Started conducting interviews, mentoring and coaching junior devs, and picking tickets to support their growth. SEV count down another 30%.
+Software Engineer, Mid-level (Nov 2022 – Oct 2025):
 
-2024: Proved myself to new product leaders after org changes. Focused more on the business side: matching business language to the code, plus sensible retries, error handling, graceful failure, and stronger error reporting to get ahead of SEVs. Gave company-wide tech talks and joined the cross-team Architecture meeting (one representative per team). Less daily coding, more scoping, long-term planning, and delegating. Every product leader who has worked with me has later asked me to be their reference.
+- Co-led decomposition of the company's largest monolith into six team-owned services (2025 – present): owned service boundary definition, data migration strategy and CI/CD; served as the technical subject matter expert, scoped work for other engineers, and acted as primary code reviewer. Designed the rollout process to make each team's cutover seamless and easy for developers to follow. In progress: 3 of 6 teams split out to date.
+- Led a three-service split of the Leads monolith (2023), authoring ~60% of the commits. Migrated incrementally with the strangler fig pattern, with zero data loss. Split the database per service from day one, redesigning schemas and indexes. Introduced RabbitMQ for durable inter-service messaging, so in-flight leads survive downstream outages instead of being dropped. Fault isolation means one service failing no longer takes down the platform: uptime rose from ~98% to 99.7% and SEVs fell 30%, with better testability, faster ticket turnaround, and independent deploys enabling twice-weekly releases.
+- Hardened services with retry policies, structured error handling, graceful degradation and expanded error reporting to catch incidents before customers did.
+- Onboarded engineers from a 2025 acquisition onto the Leads domain.
+- Represented the team in the cross-team Architecture forum; ran design reviews, roadmap sessions and company-wide tech talks.
+- Interviewed candidates and mentored junior engineers through pairing, ticket selection and technical coaching.
+- Aligned code and domain language with product and business stakeholders.
 
-2025: Onboarded new devs after an acquisition. Ran design reviews and roadmapping sessions for Leads and the wider company's software. Recognized for the 2023 refactor and asked, together with another highly respected dev, to drive splitting the company's most monolithic system into SIX teams. The work was slicing the system, scoping work for other developers, code reviews x1000, and owning the build pipeline. Promoted early again, to Senior Software Engineer, in October 2025.
+Junior Software Engineer (Feb 2021 – Nov 2022):
 
-2026: A trusted voice in the company. Brought onto a new greenfield project, "our most important release since the company started." Involved in decisions on load balancing, server scaling, caching, deployment processes, database architecture, and internal security. Got familiar with Docker, Aspire, Redis, FusionCache, pub/sub messaging, and internal library tooling. In my words: "I'm genuinely a hard worker, I don't BS, I don't dance around problems, I'm very head-on and solutions oriented, and I think I'm funny and easy to work with."
+- Joined Informatics, owning automotive lead intake and dealer reporting for 4,000+ dealers and 500K+ lead requests/day (99% uptime and accuracy targets) on C#, SQL, TypeScript and Vue.js.
+- Selected by director-level leadership after 9 months as the sole engineer moved to form the new dedicated Leads team; served as its domain expert across 3 codebases and 3 UIs, guiding 3 engineers.
+- Reduced SEVs 40% (2022).
+- Built a greenfield custom lead-destination feature that let dealers self-configure delivery, eliminating a recurring category of configuration tickets.
+- Promoted to mid-level 3 months ahead of the standard cycle.
+
+Technical skills:
+
+- Languages: C#, SQL, TypeScript
+- Frontend: Vue.js
+- Backend & infra: Azure, .NET Aspire, Docker, Redis, FusionCache
+- Messaging: RabbitMQ, MassTransit
+- Practices: Service decomposition, database design and indexing, resilience patterns, CI/CD, code review, technical interviewing
 
 ### IT Technician at University of Maryland, Division of IT (Sept 2019 – Jan 2021)
 
