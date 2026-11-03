@@ -11,7 +11,7 @@ const sections = [
 const open = ref(false)
 
 // Only Chromium can warp what's behind the nav with an SVG filter; Safari and Firefox
-// would draw nothing, so they use a frosted pane with painted ribs and reflections.
+// would draw nothing, so they keep the plain frosted glass.
 const warp = ref(false)
 onMounted(() => {
   warp.value = 'userAgentData' in navigator
@@ -81,32 +81,6 @@ nav {
 
 nav.warp {
   backdrop-filter: url(#nav-glass) blur(1px) saturate(1.5);
-}
-
-/* WebKit can't displace the live backdrop with SVG. Translucent ribs and a broad
-   reflection give its blurred backdrop a glass texture as the page scrolls past. */
-nav:not(.warp):not(.open) {
-  background:
-    linear-gradient(115deg,
-      transparent 8%,
-      rgba(253, 251, 212, 0.14) 30%,
-      transparent 48%,
-      rgba(24, 5, 1, 0.1) 72%,
-      rgba(253, 251, 212, 0.08)),
-    repeating-linear-gradient(180deg,
-      rgba(253, 251, 212, 0.14) 0,
-      rgba(253, 251, 212, 0.03) 1px,
-      transparent 4px,
-      rgba(24, 5, 1, 0.12) 8px,
-      rgba(24, 5, 1, 0.2) 10px,
-      rgba(253, 251, 212, 0.1) 12px),
-    rgba(24, 5, 1, 0.24);
-  box-shadow:
-    inset 0 1px 0 rgba(253, 251, 212, 0.45),
-    inset 0 -1px 0 rgba(24, 5, 1, 0.3),
-    0 4px 20px rgba(0, 0, 0, 0.15);
-  -webkit-backdrop-filter: blur(5px) saturate(1.5) contrast(1.1);
-  backdrop-filter: blur(5px) saturate(1.5) contrast(1.1);
 }
 
 nav.open {
