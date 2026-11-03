@@ -3,10 +3,10 @@ import { ref } from 'vue'
 
 const skills = [
   { area: 'Languages', tools: 'C#, SQL, TypeScript' },
-  { area: 'Frontend', tools: 'Vue.js' },
-  { area: 'Backend & infra', tools: 'Azure, .NET Aspire, Docker, Redis, FusionCache' },
+  { area: 'Frameworks', tools: '.NET, .NET Aspire, Vue.js' },
+  { area: 'Cloud & infrastructure', tools: 'Microsoft Azure, Docker, Redis, FusionCache' },
   { area: 'Messaging', tools: 'RabbitMQ, MassTransit' },
-  { area: 'Practices', tools: 'Service decomposition, database design and indexing, resilience patterns, CI/CD, code review, technical interviewing' },
+  { area: 'Architecture & practices', tools: 'Microservices, distributed systems, REST APIs, SQL Server, database design, CI/CD, resilience patterns' },
 ]
 
 const dialog = ref<HTMLDialogElement>()
@@ -37,35 +37,23 @@ defineExpose({ open })
       <h2 id="details-title">Ryan: Professional Summary</h2>
 
       <h3>Summary</h3>
-      <p>Senior Software Engineer at DealerOn with nearly six years in C#/.NET, SQL and TypeScript, promoted early twice (Junior → Mid → Senior). Domain lead for the company's mission-critical automotive Leads platform (4,000+ dealers, 500K+ requests/day), co-lead of a monolith decomposition into six team-owned services, and now a core engineer on the company's flagship greenfield release. Known for owning hard production problems end to end, raising team reliability, and growing other engineers.</p>
+      <p>Senior Software Engineer with nearly six years of experience designing scalable distributed systems and cloud-native applications. At DealerOn, I help build a greenfield website editor and rendering platform, co-led the split of the company's largest monolith into six independently owned services, and led the migration of its mission-critical Leads platform to three deployable services. I focus on reliable architecture, clear service contracts, and mentoring engineers.</p>
 
       <h3>Experience at DealerOn</h3>
 
       <h4>Senior Software Engineer · Oct 2025 – present</h4>
       <ul>
-        <li>Core engineer on a greenfield platform leadership describes as the company's most important release since its founding.</li>
-        <li>Contribute to decisions on load balancing, horizontal scaling, caching strategy, deployment pipelines, database architecture and internal security.</li>
-        <li>Build with Docker, .NET Aspire, Redis, FusionCache, pub/sub messaging and shared internal libraries.</li>
+        <li>Develop a greenfield drag-and-drop page editor and rendering platform that lets automotive dealerships build, customize, and publish websites, working across frontend, backend, and cross-service integrations.</li>
+        <li>Design versioned API and data contracts for an extensible widget architecture, allowing other teams to integrate independently developed components through shared NuGet packages while preserving backward compatibility.</li>
+        <li>Improve frontend performance and reliability with non-blocking CSS, client-side caching, Grafana dashboards, and automated alerts.</li>
       </ul>
 
-      <h4>Software Engineer (Mid-level) · Nov 2022 – Oct 2025</h4>
+      <h4>Software Engineer · Feb 2021 – Oct 2025</h4>
       <ul>
-        <li><strong>Co-led decomposition of the company's largest monolith into six team-owned services</strong> (2025 – present): owned service boundary definition, data migration strategy and CI/CD; served as the technical subject matter expert, scoped work for other engineers, and acted as primary code reviewer. Designed the rollout process to make each team's cutover seamless and easy for developers to follow. In progress: 3 of 6 teams split out to date.</li>
-        <li><strong>Led a three-service split of the Leads monolith</strong> (2023), authoring ~60% of the commits. Migrated incrementally with the strangler fig pattern, with zero data loss. Split the database per service from day one, redesigning schemas and indexes. Introduced RabbitMQ for durable inter-service messaging, so in-flight leads survive downstream outages instead of being dropped. Fault isolation means one service failing no longer takes down the platform: uptime rose from ~98% to 99.7% and SEVs fell 30%, with better testability, faster ticket turnaround, and independent deploys enabling twice-weekly releases.</li>
-        <li>Hardened services with retry policies, structured error handling, graceful degradation and expanded error reporting to catch incidents before customers did.</li>
-        <li>Onboarded engineers from a 2025 acquisition onto the Leads domain.</li>
-        <li>Represented the team in the cross-team Architecture forum; ran design reviews, roadmap sessions and company-wide tech talks.</li>
-        <li>Interviewed candidates and mentored junior engineers through pairing, ticket selection and technical coaching.</li>
-        <li>Aligned code and domain language with product and business stakeholders.</li>
-      </ul>
-
-      <h4>Junior Software Engineer · Feb 2021 – Nov 2022</h4>
-      <ul>
-        <li>Joined Informatics, owning automotive lead intake and dealer reporting for 4,000+ dealers and 500K+ lead requests/day (99% uptime and accuracy targets) on C#, SQL, TypeScript and Vue.js.</li>
-        <li>Selected by director-level leadership after 9 months as the sole engineer moved to form the new dedicated Leads team; served as its domain expert across 3 codebases and 3 UIs, guiding 3 engineers.</li>
-        <li>Reduced SEVs 40% (2022).</li>
-        <li>Built a greenfield custom lead-destination feature that let dealers self-configure delivery, eliminating a recurring category of configuration tickets.</li>
-        <li>Promoted to mid-level 3 months ahead of the standard cycle.</li>
+        <li><strong>Co-led the decomposition of the company's largest monolith into six independently owned services</strong>, defining service boundaries, data migration strategies, and CI/CD workflows while coordinating work across engineering teams.</li>
+        <li><strong>Led the Leads platform migration to three independently deployable microservices</strong> using incremental migration, isolated databases, and durable RabbitMQ messaging.</li>
+        <li>Improved platform uptime to 99.7% and reduced severity incidents by 30% through service isolation, fault-tolerant messaging, retry policies, and graceful degradation.</li>
+        <li>Served as a technical subject matter expert for architecture decisions, design reviews, technical roadmaps, and code reviews, while mentoring fellow engineers.</li>
       </ul>
 
       <h3>Technical Skills</h3>

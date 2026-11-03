@@ -8,7 +8,7 @@ const jobs = [
     title: 'Senior Software Engineer',
     company: 'DealerOn',
     tech: ['.NET', 'C#', 'TypeScript', 'VueJs', 'Azure', 'SQL', 'RabbitMQ', 'Redis', 'Claude'],
-    description: 'Cool job where I architect and maintain scalable automotive software solutions for 4,000+ dealerships in North America.',
+    description: 'Cool job where I architect dealership websites, CMS tools, and backend systems for 4,000+ dealers across North America.',
     // Shows Bean under the tech line; clicking him opens the long write-up.
     details: true,
   },
