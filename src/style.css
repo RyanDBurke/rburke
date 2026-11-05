@@ -6,7 +6,8 @@ html {
 
 body {
   margin: 0;
-  background: #8e9161;
+  --page-background: #0C0C0C;
+  background: var(--page-background);
   color: #FDFBD4;
   font-family: 'Playfair Display Variable', Georgia, serif;
 }

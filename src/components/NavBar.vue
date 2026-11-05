@@ -4,8 +4,9 @@ import { onMounted, ref } from 'vue'
 const sections = [
   { id: 'about', label: 'about', act: 'ACT I' },
   { id: 'experience', label: 'experience', act: 'ACT II' },
-  { id: 'photography', label: 'photography', act: 'ACT III' },
-  { id: 'contact', label: 'contact', act: 'ACT IV' },
+  { id: 'bean', label: 'bean', act: 'ACT III' },
+  { id: 'photography', label: 'film', act: 'ACT IV' },
+  { id: 'contact', label: 'contact', act: 'ACT V' },
 ]
 
 const open = ref(false)
@@ -84,7 +85,7 @@ nav.warp {
 }
 
 nav.open {
-  background: #292828;
+  background: var(--page-background);
 }
 
 .filters {
@@ -141,7 +142,7 @@ a {
   display: flex;
   align-items: center;
   padding: 0 10vw;
-  background: #000;
+  background: var(--page-background);
   transform: translateY(-100%);
   visibility: hidden;
   transition: transform 0.5s ease, visibility 0s 0.5s;

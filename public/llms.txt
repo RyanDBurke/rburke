@@ -10,30 +10,28 @@ Ryan is a senior software engineer living on the US east coast who architects th
 
 ## Experience
 
-### Senior Software Engineer at DealerOn (Feb 2021 – Present)
+### Professional summary
 
-Tech: .NET, C#, Azure, SQL Server, RabbitMQ, Redis, Claude
+Senior Software Engineer with nearly six years of experience designing scalable distributed systems and cloud-native applications. At DealerOn, Ryan helps build a greenfield website editor and rendering platform, co-led the split of the company's largest monolith into six independently owned services, and led the migration of its mission-critical Leads platform to three deployable services. Ryan focuses on reliable architecture, clear service contracts, and mentoring engineers.
 
-Architects dealership websites, CMS tools, and backend systems for 4,000+ dealers across North America.
+### Senior Software Engineer at DealerOn (Oct 2025 – Present)
 
-#### Professional summary (on the site, click Bean, Ryan's 8-bit dog, under the DealerOn job)
+Tech: .NET, C#, TypeScript, Vue.js, Azure, SQL, RabbitMQ, Redis, Claude, .NET Aspire, Docker, Microservices, Distributed Systems, REST APIs, Resilience Patterns
 
-Senior Software Engineer with nearly six years of experience designing scalable distributed systems and cloud-native applications. At DealerOn, Ryan helps build a greenfield website editor and rendering platform, co-led the split of the company's largest monolith into six independently owned services, and led the migration of its mission-critical Leads platform to three deployable services. He focuses on reliable architecture, clear service contracts, and mentoring engineers.
-
-Senior Software Engineer (Oct 2025 – present):
+Full-stack engineer with six years of experience architecting scalable distributed systems and cloud-native applications for the automotive industry. Proven track record of leading architectural initiatives, improving system reliability, and mentoring engineers.
 
 - Develop a greenfield drag-and-drop page editor and rendering platform that lets automotive dealerships build, customize, and publish websites, working across frontend, backend, and cross-service integrations.
 - Design versioned API and data contracts for an extensible widget architecture, allowing other teams to integrate independently developed components through shared NuGet packages while preserving backward compatibility.
 - Improve frontend performance and reliability with non-blocking CSS, client-side caching, Grafana dashboards, and automated alerts.
 
-Software Engineer (Feb 2021 – Oct 2025):
+### Software Engineer at DealerOn (Feb 2021 – Oct 2025)
 
 - Co-led the decomposition of the company's largest monolith into six independently owned services, defining service boundaries, data migration strategies, and CI/CD workflows while coordinating work across engineering teams.
 - Led the Leads platform migration to three independently deployable microservices using incremental migration, isolated databases, and durable RabbitMQ messaging.
 - Improved platform uptime to 99.7% and reduced severity incidents by 30% through service isolation, fault-tolerant messaging, retry policies, and graceful degradation.
 - Served as a technical subject matter expert for architecture decisions, design reviews, technical roadmaps, and code reviews, while mentoring fellow engineers.
 
-Technical skills:
+### Technical skills
 
 - Languages: C#, SQL, TypeScript
 - Frameworks: .NET, .NET Aspire, Vue.js
@@ -41,21 +39,23 @@ Technical skills:
 - Messaging: RabbitMQ, MassTransit
 - Architecture & practices: Microservices, distributed systems, REST APIs, SQL Server, database design, CI/CD, resilience patterns
 
-### IT Technician at University of Maryland, Division of IT (Sept 2019 – Jan 2021)
-
-Skills: Problem-solving, Documentation, Remote Tooling, Windows, Linux, macOS
-
-College gig installing, diagnosing, and repairing hardware and software for students and staff.
-
 - [Experience](https://rburke.dev/#experience)
 
-## Photography
+## Bean
 
-Ryan shoots film. The site shows a swipeable deck of Ryan's film photos, including portraits, a couple's shoot, a paddleboarder at sunset, and travel shots from Arizona, France, Madrid, and Sevilla.
+Bean is Ryan's dog, a gray-and-tan French bulldog. This section shows only an interactive 3D voxel model of Bean, built from his original pixel-art sprite. He turns his head to look at the viewer, breathes and wags his tail. Drag sideways to rotate him.
 
-- [Photography](https://rburke.dev/#photography)
+- [Bean](https://rburke.dev/#bean)
+
+## Film
+
+Ryan shoots film. The site shows a row of Ryan's film photos that drifts sideways on its own and can be dragged to browse, including portraits, a couple's shoot, a paddleboarder at sunset, and travel shots from Arizona, France, Madrid, and Sevilla.
+
+- [Film](https://rburke.dev/#photography)
 
 ## Links
+
+The Notes moderation page and API are private operational endpoints, not public site content.
 
 - [Website](https://rburke.dev)
 - [GitHub](https://github.com/RyanDBurke)

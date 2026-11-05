@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ScrollCue from './ScrollCue.vue'
+import ScrollingHeading from './ScrollingHeading.vue'
 import { vReveal } from '../reveal'
 
 const links = [
@@ -14,7 +15,12 @@ const open = ref(false)
 </script>
 
 <template>
-  <section id="contact">
+  <!-- The heading sits above the contact folder; the nav link lands on it. -->
+  <div id="contact">
+  <ScrollingHeading :words="['CONTACT']" />
+  <!-- Like the other sections, the folder sticks while this container scrolls past. -->
+  <div class="contact-scroll">
+  <section aria-label="Contact">
     <div
       v-reveal
       class="folder-scene"
@@ -73,15 +79,37 @@ const open = ref(false)
       </svg>
     </div>
 
-    <ScrollCue target="intro" label="back to top ↑" />
+    <ScrollCue target="intro" label="back to top ↑" :marquee="false" />
   </section>
+  </div>
+  </div>
 </template>
 
 <style scoped>
+/* Laid out like the other sections: a centered, full-screen panel that sticks while its
+   taller container scrolls past. Sticky positioning also anchors the "back to top" cue. */
 section {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   place-items: center;
-  background: #7d2011;
+  /* Keeps the folder clear of the floating nav and the "back to top" cue. */
+  padding: 5rem 1rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  /* The global `main > section` rule no longer reaches this section now that it sits under
+     its heading, so it keeps the page from widening sideways itself. */
+  overflow-x: clip;
+}
+
+.contact-scroll {
+  height: 150vh;
+}
+
+@media (max-width: 767px) {
+  section {
+    padding: 4.5rem 1rem 1rem;
+  }
 }
 
 /* Sizes are in em so the whole folder scales with this one font size. */

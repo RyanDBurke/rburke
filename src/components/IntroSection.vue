@@ -1,20 +1,33 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
-import ScrollCue from './ScrollCue.vue'
 
-const roles = [
+// `red` and `blue` pick out words to show in the site's red or blue.
+const roles: { text: string; red?: string; blue?: string }[] = [
   { text: 'Software Engineer' },
-  { text: 'Film Photographer' },
-  { text: 'Oil Pastel Art Painter' },
-  { text: 'Basketball Junkie' },
-  { text: 'Twenty Handicap Golfer' },
+  { text: 'Film Photographer', blue: 'Film' },
+  { text: 'Oil Pastel Art Painter', red: 'Art Painter' },
+  { text: 'Basketball Junkie', blue: 'Basketball' },
+  { text: 'Twenty Handicap Golfer', red: 'Golfer' },
   { text: 'Sushi Enjoyer' },
-  { text: 'Morir Soñando Drinker' },
-  { text: 'Chai Consumer' },
+  { text: 'Morir Soñando Drinker', red: 'Morir' },
+  { text: 'Chai Consumer', blue: 'Chai' },
   { text: 'Birkenstocks Owner' },
-  { text: 'Frank Ocean Listener' },
+  { text: 'Frank Ocean Listener', red: 'Listener', blue: 'Ocean' },
   { text: 'Diddy Kong Main' },
 ]
+
+// Splits a descriptor into pieces, tagging the red and blue words with their color.
+function pieces(role: (typeof roles)[number]) {
+  const colors: Record<string, string> = {}
+  if (role.red) colors[role.red] = 'red'
+  if (role.blue) colors[role.blue] = 'blue'
+  const words = Object.keys(colors)
+  if (!words.length) return [{ text: role.text, color: '' }]
+  return role.text
+    .split(new RegExp(`(${words.join('|')})`))
+    .filter(Boolean)
+    .map(text => ({ text, color: colors[text] ?? '' }))
+}
 
 // How far (in svh) the page scrolls per descriptor while the intro stays pinned.
 const scrollPerRole = 12
@@ -59,12 +72,10 @@ onUnmounted(() => {
             :class="{ shown: i < shown }"
             :style="{ '--opacity': roleOpacity(i) }"
           >
-            {{ role.text }}
+            <span v-for="(piece, j) in pieces(role)" :key="j" :class="piece.color">{{ piece.text }}</span>
           </li>
         </ul>
       </div>
-      <!-- Waits for the first descriptor to fade in. -->
-      <ScrollCue target="about" :delay="1.6" />
     </div>
   </section>
 </template>
@@ -72,7 +83,6 @@ onUnmounted(() => {
 <style scoped>
 section {
   padding: 0;
-  background: #7d2011;
   text-align: center;
 }
 
@@ -112,6 +122,15 @@ h1 {
 
 .roles li.shown {
   opacity: var(--opacity);
+}
+
+/* Same red and blue as the rest of the site. */
+.red {
+  color: #E31717;
+}
+
+.blue {
+  color: #1754E3;
 }
 
 /* The first descriptor fades in as soon as the page loads. */

@@ -3,6 +3,7 @@ import NavBar from './components/NavBar.vue'
 import IntroSection from './components/IntroSection.vue'
 import AboutSection from './components/AboutSection.vue'
 import ExperienceSection from './components/ExperienceSection.vue'
+import BeanSection from './components/BeanSection.vue'
 import PhotographySection from './components/PhotographySection.vue'
 import ContactSection from './components/ContactSection.vue'
 </script>
@@ -13,6 +14,7 @@ import ContactSection from './components/ContactSection.vue'
     <IntroSection />
     <AboutSection />
     <ExperienceSection />
+    <BeanSection />
     <PhotographySection />
     <ContactSection />
   </main>

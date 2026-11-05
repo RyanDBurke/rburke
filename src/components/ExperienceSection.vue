@@ -1,45 +1,16 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
-import ScrollCue from './ScrollCue.vue'
-import ExperienceDetails from './ExperienceDetails.vue'
+import { onMounted, onUnmounted, ref } from 'vue'
+import ScrollingHeading from './ScrollingHeading.vue'
 
-const jobs = [
-  {
-    title: 'Senior Software Engineer',
-    company: 'DealerOn',
-    tech: ['.NET', 'C#', 'TypeScript', 'VueJs', 'Azure', 'SQL', 'RabbitMQ', 'Redis', 'Claude'],
-    description: 'Cool job where I architect dealership websites, CMS tools, and backend systems for 4,000+ dealers across North America.',
-    // Shows Bean under the tech line; clicking him opens the long write-up.
-    details: true,
-  },
-  {
-    title: 'IT Technician',
-    company: 'University of Maryland, Division of IT',
-    tech: ['Problem-solving', 'Documentation', 'Remote Tooling', 'Windows', 'Linux', 'MacOS'],
-    description: "College gig where I'd install, diagnose, or repair hardware/software for students and staff",
-  },
-]
+const job = {
+  title: 'Senior Software Engineer',
+  company: 'DealerOn',
+  tech: ['.NET', 'C#', 'TypeScript', 'VueJs', 'Azure', 'SQL', 'RabbitMQ', 'Redis', 'Claude', 'Aspire', 'Docker', 'Microservices', 'Distributed Systems', 'REST APIs', 'Resilience Patterns'],
+}
 
 const section = ref<HTMLElement>()
-const detailsDialog = ref<InstanceType<typeof ExperienceDetails>>()
 const visible = ref(false)
 let observer: IntersectionObserver | undefined
-
-// What Bean's speech bubble says, in order, and how long each line stays up. It loops back to the start.
-// Bean does a jump and a flip on lines marked flip.
-const beanLines = [
-  { text: 'woof! click me!', ms: 2200, flip: true },
-  { text: 'whoa I wonder if Ryan has a long AI-friendly write up detailing his time at DealerOn', ms: 4500 },
-]
-// -1 until the section scrolls into view, so the bubble starts talking only once it's seen.
-const beanStep = ref(-1)
-const beanLine = computed(() => beanLines[beanStep.value])
-let beanTimer: ReturnType<typeof setTimeout> | undefined
-
-function nextBeanLine() {
-  beanStep.value = (beanStep.value + 1) % beanLines.length
-  beanTimer = setTimeout(nextBeanLine, beanLines[beanStep.value].ms)
-}
 
 // Fade the content in the first time the section scrolls into view.
 onMounted(() => {
@@ -47,8 +18,6 @@ onMounted(() => {
     if (entry.isIntersecting) {
       visible.value = true
       observer?.disconnect()
-      // Waits for the jobs to finish fading in.
-      beanTimer = setTimeout(nextBeanLine, 1200)
     }
   }, { threshold: 0.3 })
   observer.observe(section.value!)
@@ -56,64 +25,68 @@ onMounted(() => {
 
 onUnmounted(() => {
   observer?.disconnect()
-  clearTimeout(beanTimer)
 })
 </script>
 
 <template>
-  <section id="experience" ref="section" :class="{ visible }">
-    <!-- Each job gets 3 fade steps, so the second job fades in after the first. -->
-    <div class="jobs">
-      <div v-for="(job, j) in jobs" :key="job.title" class="job">
-        <hr v-if="j > 0" class="fade" :style="{ '--i': j * 3 }">
-        <h3 class="fade" :style="{ '--i': j * 3 }">
+  <div id="experience">
+  <!-- The heading scrolls away normally; the jobs panel below then sticks on its own. -->
+  <ScrollingHeading :words="['EXPERIENCE']" />
+  <div class="experience-scroll">
+    <section ref="section" aria-label="Experience" :class="{ visible }">
+      <!-- The title, summary, and tech line fade in in order. -->
+      <div class="jobs">
+        <h3 class="fade" style="--i: 0">
           {{ job.title }} <span class="company">at {{ job.company }}</span>
         </h3>
-        <p class="fade description" :style="{ '--i': j * 3 + 1 }">{{ job.description }}</p>
-        <p class="fade meta tech" :style="{ '--i': j * 3 + 2 }">{{ job.tech.join(' · ') }}</p>
-        <div v-if="job.details" class="fade bean-wrap" :style="{ '--i': j * 3 + 2 }">
-          <button class="bean" aria-label="Read Ryan's long write-up about DealerOn" @click="detailsDialog?.open()">
-            <img
-              src="/images/bean.png"
-              alt=""
-              width="758"
-              height="720"
-              :class="{ flip: beanLine?.flip }"
-            >
-          </button>
-          <!-- Keyed so each new line pops in again. -->
-          <p v-if="beanLine" :key="beanStep" class="bubble" aria-hidden="true">{{ beanLine.text }}</p>
+        <p class="fade description" style="--i: 1">
+          Full-stack engineer with <span class="blue">six years</span> of experience architecting
+          <span class="red">scalable</span> distributed systems and <span class="blue">cloud-native</span> applications for the automotive industry.
+          Proven track record of <span class="red">leading</span> architectural initiatives, improving system
+          reliability, and mentoring engineers.
+        </p>
+        <div class="fade meta tech tech-marquee" style="--i: 2">
+          <span class="visually-hidden">{{ job.tech.join(', ') }}</span>
+          <div class="tech-track" aria-hidden="true">
+            <div v-for="row in 2" :key="row" class="tech-row">
+              <span v-for="tool in job.tech" :key="tool" class="tech-item">
+                {{ tool }} <span class="tech-star">*</span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <ScrollCue target="photography" />
-    <ExperienceDetails ref="detailsDialog" />
-  </section>
+    </section>
+  </div>
+  </div>
 </template>
 
 <style scoped>
+.experience-scroll {
+  height: 150vh;
+}
+
 section {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
   place-items: center;
-  background: #6D6CAB;
-  /* Just clears the floating nav and the scroll cue, leaving Bean's bubble as much room as possible. */
-  padding: 4.5rem 1rem 3.5rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-x: clip;
+  padding: 5rem 1rem;
 }
 
 .jobs {
-  /* Matches the nav bar width. */
-  width: 25vw;
-}
-
-hr {
-  margin: min(2.25rem, 3.5dvh) 0;
-  border: 0;
-  border-top: 1px solid rgba(253, 251, 212, 0.35);
+  min-width: 0;
+  width: 70vw; /* matches the About section's paragraph width */
+  text-align: center;
 }
 
 h3 {
   margin: 0 0 0.5rem;
-  /* Capped by screen height too, so the section never outgrows one screen. */
+  /* Keep titles readable on shorter screens. */
   font-size: min(max(1.25rem, 2.4vw), 3.6dvh);
   line-height: 1.2;
 }
@@ -131,147 +104,111 @@ h3 {
 }
 
 .description {
-  margin: 1.25rem 0 0;
-  font-size: min(max(1rem, 1.65vw), 2.55dvh);
-  line-height: 1.5;
+  width: 100%;
+  margin: 1.25rem auto 0;
+  /* Same size as the About section's paragraphs. */
+  font-size: min(max(1.4rem, 3.15vw), 5.46dvh);
+  line-height: 1.4;
+}
+
+/* Same red and blue as the About section. */
+.red {
+  color: #E31717;
+}
+
+.blue {
+  color: #1754E3;
+}
+
+/* Keep each highlighted phrase (like "six years") on one line. */
+.red,
+.blue {
+  white-space: nowrap;
 }
 
 .tech {
   margin-top: 0.75rem;
 }
 
-/* Bean, Ryan's dog, under the tech line. The bubble is positioned above him, so it never changes the layout. */
-.bean-wrap {
+.tech-marquee {
   position: relative;
-  width: fit-content;
-  /* A little extra room, since the long line's bubble is taller than Bean. */
-  margin-top: 1.5rem;
+  width: 100%;
+  overflow: hidden;
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  line-height: 2.5rem;
+  white-space: nowrap;
 }
 
-.bean {
-  display: block;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-}
-
-.bean img {
-  display: block;
-  width: 4rem;
-  height: auto;
-  /* Keeps the pixel art crisp when scaled down. */
-  image-rendering: pixelated;
-  /* A yellow glow around his outline so he reads as clickable. */
-  filter: drop-shadow(0 0 3px rgba(255, 214, 64, 0.9)) drop-shadow(0 0 8px rgba(255, 214, 64, 0.5));
-  transition: filter 0.2s ease;
-}
-
-.bean:hover img,
-.bean:focus-visible img {
-  filter: drop-shadow(0 0 4px rgb(255, 214, 64)) drop-shadow(0 0 14px rgba(255, 214, 64, 0.8));
-}
-
-/* A jump and a backflip on every "woof!". */
-.bean img.flip {
-  animation: bean-flip 0.7s ease-in-out;
-}
-
-@keyframes bean-flip {
-  0% { transform: translateY(0) rotate(0); }
-  50% { transform: translateY(-1.5rem) rotate(-180deg); }
-  100% { transform: translateY(0) rotate(-360deg); }
-}
-
-/* An 8-bit speech bubble to Bean's right, its tail pointing left at him.
-   The four offset shadows draw the outline with notched corners, like pixel art. */
-.bubble {
-  --px: 4px;
-  position: absolute;
-  left: calc(100% + 1.5rem);
-  top: 50%;
-  /* Separate from transform, so the pop animation doesn't undo the centering. */
-  translate: 0 -50%;
+.tech-track {
+  display: flex;
   width: max-content;
-  max-width: 20rem;
-  margin: 0;
-  pointer-events: none;
-  padding: 0.75rem;
-  background: #fff;
-  color: #1a1a1a;
-  font-family: 'Press Start 2P', monospace;
-  font-size: 0.55rem;
-  line-height: 1.7;
-  text-align: left;
-  box-shadow:
-    0 calc(-1 * var(--px)) #1a1a1a,
-    0 var(--px) #1a1a1a,
-    calc(-1 * var(--px)) 0 #1a1a1a,
-    var(--px) 0 #1a1a1a,
-    calc(2 * var(--px)) calc(2 * var(--px)) rgba(0, 0, 0, 0.25);
-  transform-origin: 0 50%;
+  animation: tech-scroll-right 30s linear infinite;
 }
 
-/* The tail: a stair-stepped pixel triangle, one square per shadow. It starts on the left outline column,
-   whitening a gap in it, then steps left and narrows. */
-.bubble::after {
-  content: '';
+.tech-row {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.tech-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.tech-star {
+  color: #E31717;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1em;
+  font-family: 'Oi', cursive;
+  line-height: 1;
+  transform: translateY(0.18em);
+}
+
+.visually-hidden {
   position: absolute;
-  left: calc(-1 * var(--px));
-  top: calc(50% - 2 * var(--px));
-  width: var(--px);
-  height: var(--px);
-  box-shadow:
-    0 var(--px) #fff, 0 calc(2 * var(--px)) #fff,
-    calc(-1 * var(--px)) 0 #1a1a1a, calc(-1 * var(--px)) var(--px) #fff, calc(-1 * var(--px)) calc(2 * var(--px)) #fff, calc(-1 * var(--px)) calc(3 * var(--px)) #1a1a1a,
-    calc(-2 * var(--px)) var(--px) #1a1a1a, calc(-2 * var(--px)) calc(2 * var(--px)) #fff, calc(-2 * var(--px)) calc(3 * var(--px)) #1a1a1a,
-    calc(-3 * var(--px)) calc(2 * var(--px)) #1a1a1a, calc(-3 * var(--px)) calc(3 * var(--px)) #1a1a1a,
-    calc(-4 * var(--px)) calc(3 * var(--px)) #1a1a1a;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
-/* Each line pops up in choppy steps. */
-.bubble {
-  animation: bubble-pop 0.3s steps(3, jump-end);
-}
-
-@keyframes bubble-pop {
-  from { transform: scale(0); }
+@keyframes tech-scroll-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
 }
 
 @media (max-width: 767px) {
-  .jobs {
-    width: 80vw;
-  }
-
+  section {padding:4.5rem 1rem 1rem}
+  .jobs {width:100%}
   h3 {
-    font-size: 7vw;
+    font-size: min(7vw, 3.5dvh);
   }
 
   .meta {
-    font-size: 4vw;
+    font-size: min(4vw, 2.5dvh);
   }
 
   .description {
-    font-size: 5vw;
+    font-size: min(7.5vw, 3.2dvh);
+    width: 100%;
   }
 
-  /* Narrow enough to leave the same gutter on the right as the column has on the left;
-     the text wraps to more rows instead. */
-  .bubble {
-    max-width: calc(80vw - 5.5rem);
+  .tech-marquee {
+    line-height: min(2.5rem, 5dvh);
   }
+
 }
 
-/* Tighter spacing on short phones so both jobs fit on one screen. */
+/* Tighter spacing on short phones. */
 @media (max-width: 767px) and (max-height: 760px) {
-  section {
-    padding-block: 4.5rem 4rem;
-  }
-
-  hr {
-    margin: 1rem 0;
-  }
-
   .description {
     margin-top: 0.75rem;
   }
@@ -292,11 +229,16 @@ h3 {
   opacity: 0.7;
 }
 
+.visible .tech-marquee {
+  opacity: 1;
+}
+
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(0.5rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .visible .fade, .bubble, .bean img.flip { animation: none; }
+  .visible .fade { animation: none; }
+  .tech-track { animation: none; transform: translateX(-50%); }
 }
 </style>
