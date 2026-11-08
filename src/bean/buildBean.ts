@@ -42,7 +42,7 @@ export function buildBody(config: BeanConfig = beanConfig) {
   const farHind = region(10, 28), farFront = region(31, 30), main = region(10, 20)
   const jaw: Record<number, number> = { 13: 28, 14: 29, 15: 29, 16: 30, 17: 31, 18: 32 }
   const isHead = (c: number, r: number) => r <= 12 || (r <= 18 && c >= jaw[r])
-  const isNearLeg = (c: number, r: number) => r >= 28 && (c <= 7 || (c >= 23 && c <= 27))
+  const isNearLeg = (c: number, r: number) => r >= 28 && (c <= 7 || (c >= 23 && c <= 28))
   const body = new Voxels()
 
   // Torso: each sprite column spans exactly that column's top and belly rows (so the side
