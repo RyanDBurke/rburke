@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 
 const sections = [
+  { id: 'intro', label: 'home', act: 'PROLOGUE' },
   { id: 'about', label: 'about', act: 'ACT I' },
   { id: 'experience', label: 'experience', act: 'ACT II' },
   { id: 'bean', label: 'bean', act: 'ACT III' },
