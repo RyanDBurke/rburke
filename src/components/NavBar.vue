@@ -6,7 +6,8 @@ const sections = [
   { id: 'experience', label: 'experience', act: 'ACT II' },
   { id: 'bean', label: 'bean', act: 'ACT III' },
   { id: 'photography', label: 'film', act: 'ACT IV' },
-  { id: 'contact', label: 'contact', act: 'ACT V' },
+  { id: 'golf', label: 'golf', act: 'ACT V' },
+  { id: 'contact', label: 'contact', act: 'ACT VI' },
 ]
 
 const open = ref(false)

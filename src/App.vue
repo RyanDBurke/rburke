@@ -5,6 +5,7 @@ import AboutSection from './components/AboutSection.vue'
 import ExperienceSection from './components/ExperienceSection.vue'
 import BeanSection from './components/BeanSection.vue'
 import PhotographySection from './components/PhotographySection.vue'
+import GolfSection from './components/GolfSection.vue'
 import ContactSection from './components/ContactSection.vue'
 </script>
 
@@ -16,6 +17,7 @@ import ContactSection from './components/ContactSection.vue'
     <ExperienceSection />
     <BeanSection />
     <PhotographySection />
+    <GolfSection />
     <ContactSection />
   </main>
 </template>
