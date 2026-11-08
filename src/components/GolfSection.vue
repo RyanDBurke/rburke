@@ -2,16 +2,56 @@
 import ScrollingHeading from './ScrollingHeading.vue'
 import { vScrollScale } from '../scrollScale'
 
+// A round's hole-by-hole card: par and Ryan's score for holes 1-18.
+type Card = { pars: number[]; scores: number[] }
+type Round = { score: number; date: string; course: string; card?: Card }
+
+// Laytonsville Golf Course, par 71 (36 out, 35 in), from its published scorecard.
+const laytonsvillePars = [4, 4, 3, 5, 3, 5, 4, 4, 4, 4, 4, 3, 4, 4, 4, 3, 4, 5]
+
 // Each personal best, best score first. The first one is the current best; the rest are
-// struck through. Add a new round to the top of the list when the record falls.
-const rounds = [
-  { score: 93, date: 'July 15, 2026', course: 'Laytonsville' },
+// struck through. Add a new round to the top of the list when the record falls. A round
+// with a `card` shows its scorecard under it.
+const rounds: Round[] = [
+  {
+    score: 93, date: 'July 15, 2026', course: 'Laytonsville',
+    card: { pars: laytonsvillePars, scores: [5, 4, 5, 7, 3, 6, 4, 6, 5, 6, 6, 5, 4, 5, 6, 5, 4, 7] },
+  },
   { score: 96, date: 'April 19, 2026', course: 'Laytonsville' },
   { score: 100, date: 'March 8, 2026', course: 'Needwood' },
   { score: 108, date: 'January 12, 2026', course: 'Northwest Park' },
   { score: 111, date: 'October 26, 2025', course: 'Fairway Hills' },
   { score: 119, date: 'August 29, 2025', course: 'Needwood' },
 ]
+
+const sum = (list: number[]) => list.reduce((a, b) => a + b, 0)
+
+// A card split into its two nines, as on a paper scorecard. The back nine also carries the total.
+function nines(card: Card) {
+  return [
+    { label: 'Out', start: 0, total: false },
+    { label: 'In', start: 9, total: true },
+  ].map(({ label, start, total }) => ({
+    label,
+    holes: Array.from({ length: 9 }, (_, i) => ({
+      number: start + i + 1,
+      par: card.pars[start + i],
+      score: card.scores[start + i],
+    })),
+    par: sum(card.pars.slice(start, start + 9)),
+    score: sum(card.scores.slice(start, start + 9)),
+    total: total ? { par: sum(card.pars), score: sum(card.scores) } : undefined,
+  }))
+}
+
+// Scorecard markings: a circle under par, a box for a bogey, a double box for worse.
+function mark(score: number, par: number) {
+  const diff = score - par
+  if (diff < 0) return 'under'
+  if (diff === 1) return 'bogey'
+  if (diff >= 2) return 'double'
+  return ''
+}
 </script>
 
 <template>
@@ -29,6 +69,34 @@ const rounds = [
             shot my <img v-if="i === 0" class="inline-pic" src="/images/me.png" alt="" width="773" height="977"> personal best <span class="score">{{ round.score }}</span>
             on {{ round.date }} at <img v-if="i === 0" class="inline-pic" src="/images/golf-icon.png" alt="" width="256" height="248"> <span class="course">{{ round.course }}</span>
           </component>
+          <!-- The round's scorecard, front nine and back nine. -->
+          <div v-if="round.card" class="scorecard">
+            <table v-for="nine in nines(round.card)" :key="nine.label">
+              <caption class="visually-hidden">{{ round.course }}, {{ round.date }}: {{ nine.label === 'Out' ? 'front' : 'back' }} nine</caption>
+              <tbody>
+                <tr class="hole-row">
+                  <th scope="row">Hole</th>
+                  <th v-for="hole in nine.holes" :key="hole.number" scope="col">{{ hole.number }}</th>
+                  <th scope="col" class="sum">{{ nine.label }}</th>
+                  <th v-if="nine.total" scope="col" class="sum">Tot</th>
+                </tr>
+                <tr class="par-row">
+                  <th scope="row">Par</th>
+                  <td v-for="hole in nine.holes" :key="hole.number">{{ hole.par }}</td>
+                  <td class="sum">{{ nine.par }}</td>
+                  <td v-if="nine.total" class="sum">{{ nine.total.par }}</td>
+                </tr>
+                <tr class="score-row">
+                  <th scope="row">Score</th>
+                  <td v-for="hole in nine.holes" :key="hole.number">
+                    <span :class="['mark', mark(hole.score, hole.par)]">{{ hole.score }}</span>
+                  </td>
+                  <td class="sum">{{ nine.score }}</td>
+                  <td v-if="nine.total" class="sum">{{ nine.total.score }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </li>
       </ol>
     </section>
@@ -95,6 +163,94 @@ section {
 
 .best .course {
   color: #1754E3;
+}
+
+/* The scorecard under the current best: two nines, side by side where there's room. */
+.scorecard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8em 1.2em;
+  margin-top: 0.7em;
+  font-size: 0.45em; /* relative to the best line's large text */
+  font-weight: 400;
+}
+
+.scorecard table {
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.scorecard th,
+.scorecard td {
+  min-width: 2em;
+  padding: 0.35em 0.25em;
+  border: 1px solid rgba(253, 251, 212, 0.22);
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Row labels down the left side. */
+.scorecard th[scope="row"] {
+  padding-inline: 0.6em;
+  text-align: left;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.hole-row th {
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.par-row td {
+  opacity: 0.8;
+}
+
+.score-row td {
+  font-weight: 700;
+}
+
+/* Out, In and Tot columns. */
+.scorecard .sum {
+  font-weight: 700;
+  background: rgba(253, 251, 212, 0.06);
+}
+
+.score-row .sum {
+  color: #E31717;
+}
+
+/* Scorecard markings around each hole's score. */
+.mark {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.5em;
+  height: 1.5em;
+}
+
+.mark.under {
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.mark.bogey {
+  border: 1px solid currentColor;
+}
+
+.mark.double {
+  border: 1px solid currentColor;
+  outline: 1px solid currentColor;
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 @media (max-width: 767px) {

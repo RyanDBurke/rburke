@@ -63,7 +63,7 @@ Ryan shoots film. The site shows a row of Ryan's film photos that drifts sideway
 
 ## Golf
 
-Ryan's personal-best golf rounds, each one breaking the last. The current best is 93, shot on July 15, 2026 at Laytonsville. Earlier personal bests: 96 at Laytonsville (April 19, 2026), 100 at Needwood (March 8, 2026), 108 at Northwest Park (January 12, 2026), 111 at Fairway Hills (October 26, 2025), and 119 at Needwood (August 29, 2025).
+Ryan's personal-best golf rounds, each one breaking the last. The current best is 93, shot on July 15, 2026 at Laytonsville (par 71): 45 on the front nine and 48 on the back. The site shows its hole-by-hole scorecard: front 5, 4, 5, 7, 3, 6, 4, 6, 5; back 6, 6, 5, 4, 5, 6, 5, 4, 7. Earlier personal bests: 96 at Laytonsville (April 19, 2026), 100 at Needwood (March 8, 2026), 108 at Northwest Park (January 12, 2026), 111 at Fairway Hills (October 26, 2025), and 119 at Needwood (August 29, 2025).
 
 - [Golf](https://rburke.dev/#golf)
 
