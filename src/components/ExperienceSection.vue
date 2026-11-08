@@ -1,26 +1,45 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
+import { vScrollScale } from '../scrollScale'
 import ScrollingHeading from './ScrollingHeading.vue'
 
-const job = {
-  title: 'Senior Software Engineer',
-  company: 'DealerOn',
-  tech: ['.NET', 'C#', 'TypeScript', 'VueJs', 'Azure', 'SQL', 'RabbitMQ', 'Redis', 'Claude', 'Aspire', 'Docker', 'Microservices', 'Distributed Systems', 'REST APIs', 'Resilience Patterns'],
-}
+// Each entry gets its own sticky panel, in this order. Descriptions are trusted, hand-written
+// HTML so phrases can be colored with the .red and .blue classes.
+const jobs = [
+  {
+    title: 'Senior Software Engineer',
+    at: 'at DealerOn',
+    description: `Full-stack engineer with <span class="blue">six years</span> of experience architecting
+      <span class="red">scalable</span> distributed systems and <span class="blue">cloud-native</span> applications for the automotive industry.
+      Proven track record of <span class="red">leading</span> architectural initiatives, improving system
+      reliability, and mentoring engineers.`,
+    tech: ['.NET', 'C#', 'TypeScript', 'VueJs', 'Azure', 'SQL', 'RabbitMQ', 'Redis', 'Claude', 'Aspire', 'Docker', 'Microservices', 'Distributed Systems', 'REST APIs', 'Resilience Patterns'],
+  },
+  {
+    title: 'nCov-19 Genome Variant',
+    at: 'on GitHub',
+    link: 'https://github.com/RyanDBurke/coronavirus-genome-variant',
+    description: `Seed-search tool used to compare read-variants to the <span class="blue">nCov-19</span> virus genome using
+      the <span class="red">Burrows-Wheeler transform</span>, suffix arrays, the <span class="blue">FM-Index</span>, and core
+      <span class="red">dynamic programming</span> principles.`,
+    tech: ['C', 'Dynamic Programming', 'Burrows-Wheeler Transform', 'Suffix Arrays', 'FM-Index'],
+  },
+]
 
-const section = ref<HTMLElement>()
-const visible = ref(false)
+const sections = ref<HTMLElement[]>([])
+const visible = ref(jobs.map(() => false))
 let observer: IntersectionObserver | undefined
 
-// Fade the content in the first time the section scrolls into view.
+// Fade each panel's content in the first time it scrolls into view.
 onMounted(() => {
-  observer = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) {
-      visible.value = true
-      observer?.disconnect()
+  observer = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue
+      visible.value[sections.value.indexOf(entry.target as HTMLElement)] = true
+      observer?.unobserve(entry.target)
     }
   }, { threshold: 0.3 })
-  observer.observe(section.value!)
+  sections.value.forEach(section => observer!.observe(section))
 })
 
 onUnmounted(() => {
@@ -30,21 +49,19 @@ onUnmounted(() => {
 
 <template>
   <div id="experience">
-  <!-- The heading scrolls away normally; the jobs panel below then sticks on its own. -->
+  <!-- The heading scrolls away normally; each entry's panel below then sticks on its own. -->
   <ScrollingHeading :words="['EXPERIENCE']" />
-  <div class="experience-scroll">
-    <section ref="section" aria-label="Experience" :class="{ visible }">
+  <div v-for="(job, i) in jobs" :key="job.title" class="experience-scroll">
+    <section ref="sections" :aria-label="job.title" :class="{ visible: visible[i] }">
       <!-- The title, summary, and tech line fade in in order. -->
-      <div class="jobs">
+      <div v-scroll-scale class="jobs">
         <h3 class="fade" style="--i: 0">
-          {{ job.title }} <span class="company">at {{ job.company }}</span>
+          {{ job.title }}
+          <a v-if="job.link" class="company" :href="job.link" target="_blank" rel="noopener noreferrer">{{ job.at }}</a>
+          <span v-else class="company">{{ job.at }}</span>
         </h3>
-        <p class="fade description" style="--i: 1">
-          Full-stack engineer with <span class="blue">six years</span> of experience architecting
-          <span class="red">scalable</span> distributed systems and <span class="blue">cloud-native</span> applications for the automotive industry.
-          Proven track record of <span class="red">leading</span> architectural initiatives, improving system
-          reliability, and mentoring engineers.
-        </p>
+        <!-- eslint-disable-next-line vue/no-v-html -- static, hand-written markup above -->
+        <p class="fade description" style="--i: 1" v-html="job.description"></p>
         <div class="fade meta tech tech-marquee" style="--i: 2">
           <span class="visually-hidden">{{ job.tech.join(', ') }}</span>
           <div class="tech-track" aria-hidden="true">
@@ -111,19 +128,24 @@ h3 {
   line-height: 1.4;
 }
 
-/* Same red and blue as the About section. */
-.red {
+/* Same red and blue as the About section. :deep reaches the spans inside each v-html description. */
+.description :deep(.red) {
   color: #E31717;
 }
 
-.blue {
+.description :deep(.blue) {
   color: #1754E3;
 }
 
 /* Keep each highlighted phrase (like "six years") on one line. */
-.red,
-.blue {
+.description :deep(.red),
+.description :deep(.blue) {
   white-space: nowrap;
+}
+
+a.company {
+  color: inherit;
+  text-underline-offset: 0.15em;
 }
 
 .tech {

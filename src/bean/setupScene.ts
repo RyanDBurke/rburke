@@ -25,6 +25,10 @@ export function setupBeanScene(host: HTMLElement) {
   controls.maxDistance=25
   // Bean fills a whole section, so the wheel and pinch must keep scrolling the page.
   controls.enableZoom=false
+  // OrbitControls sets touch-action:none on the canvas, which blocks page scrolling on phones.
+  // pan-y lets vertical swipes scroll (the browser sends pointercancel, ending the drag) while
+  // sideways drags still rotate Bean.
+  renderer.domElement.style.touchAction='pan-y'
   const {model,dispose:disposeModel,update}=createBean()
   scene.add(model)
   const box=new Box3().setFromObject(model)
@@ -60,8 +64,10 @@ export function setupBeanScene(host: HTMLElement) {
     camera.position.copy(target).add(dir.clone().multiplyScalar(distance))
     controls.target.copy(target); controls.update()
   }
+  // clientWidth/Height ignore CSS transforms, so the grow-on-scroll scale doesn't shrink the
+  // drawing buffer (getBoundingClientRect would, leaving Bean blurry at full size).
   const resize=new ResizeObserver(()=>{
-    const {width,height}=host.getBoundingClientRect()
+    const width=host.clientWidth, height=host.clientHeight
     if(!width || !height)return
     camera.aspect=width/height; camera.updateProjectionMatrix()
     renderer.setSize(width,height,false); reset()

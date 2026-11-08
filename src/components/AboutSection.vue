@@ -1,38 +1,7 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
 import { vReveal } from '../reveal'
+import { vScrollScale } from '../scrollScale'
 import ScrollingHeading from './ScrollingHeading.vue'
-
-const paragraph = ref<HTMLParagraphElement>()
-let frame: number | undefined
-
-// The paragraph grows from small to full size as it scrolls up to the middle of the screen.
-function updateScale() {
-  frame = undefined
-  const element = paragraph.value
-  if (!element) return
-
-  const bounds = element.getBoundingClientRect()
-  const distance = Math.max(0, bounds.top + bounds.height / 2 - window.innerHeight / 2)
-  const progress = Math.max(0, 1 - distance / (window.innerHeight * 0.65))
-  element.style.transform = `scale(${0.2 + progress * 0.8})`
-}
-
-function scheduleScaleUpdate() {
-  if (frame === undefined) frame = requestAnimationFrame(updateScale)
-}
-
-onMounted(() => {
-  scheduleScaleUpdate()
-  window.addEventListener('scroll', scheduleScaleUpdate, { passive: true })
-  window.addEventListener('resize', scheduleScaleUpdate)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', scheduleScaleUpdate)
-  window.removeEventListener('resize', scheduleScaleUpdate)
-  if (frame !== undefined) cancelAnimationFrame(frame)
-})
 </script>
 
 <template>
@@ -42,7 +11,8 @@ onUnmounted(() => {
   <div class="about-scroll">
     <section aria-label="About">
       <div v-reveal>
-        <p ref="paragraph">
+        <!-- The paragraph grows to full size as it scrolls up to the middle of the screen. -->
+        <p v-scroll-scale>
           <!-- Keep explicit spaces where the source line breaks between sentences. -->
           <span class="lead">I'm Ryan</span> <a href="https://www.linkedin.com/in/ryanburke77/" target="_blank"
             rel="noopener noreferrer"><img class="inline-pic" src="/images/me.png" alt="Ryan on LinkedIn" width="773"
@@ -82,7 +52,6 @@ p {
   font-size: min(max(1.4rem, 3.15vw), 5.46dvh);
   line-height: 1.4;
   text-align: center;
-  transform-origin: center;
 }
 
 /* The opening words of each paragraph stand out from the rest. */
@@ -132,9 +101,5 @@ p {
     display: revert;
   }
 
-}
-
-@media (prefers-reduced-motion: reduce) {
-  p { transform: none !important; }
 }
 </style>

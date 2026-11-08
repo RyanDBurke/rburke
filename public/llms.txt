@@ -1,6 +1,6 @@
 # Ryan Burke
 
-> Ryan Burke is a software engineer, film photographer, oil pastel painter, basketball junkie, and twenty-handicap golfer. Also: sushi enjoyer, Morir Soñando drinker, chai consumer, Birkenstocks owner, Frank Ocean listener, and Diddy Kong main. This is Ryan's personal site.
+> Ryan Burke is a software engineer, film photographer, oil pastel painter, basketball junkie, and twenty-handicap golfer. Also: Frank Ocean listener and Diddy Kong main. This is Ryan's personal site.
 
 ## About
 
@@ -31,6 +31,14 @@ Full-stack engineer with six years of experience architecting scalable distribut
 - Improved platform uptime to 99.7% and reduced severity incidents by 30% through service isolation, fault-tolerant messaging, retry policies, and graceful degradation.
 - Served as a technical subject matter expert for architecture decisions, design reviews, technical roadmaps, and code reviews, while mentoring fellow engineers.
 
+### nCov-19 Genome Variant (project on GitHub)
+
+Tech: C, Dynamic Programming, Burrows-Wheeler Transform, Suffix Arrays, FM-Index
+
+Seed-search tool used to compare read-variants to the nCov-19 virus genome using the Burrows-Wheeler transform, suffix arrays, the FM-Index, and core dynamic programming principles.
+
+- [Repository](https://github.com/RyanDBurke/coronavirus-genome-variant)
+
 ### Technical skills
 
 - Languages: C#, SQL, TypeScript
@@ -49,7 +57,7 @@ Bean is Ryan's dog, a gray-and-tan French bulldog. This section shows only an in
 
 ## Film
 
-Ryan shoots film. The site shows a row of Ryan's film photos that drifts sideways on its own and can be dragged to browse, including portraits, a couple's shoot, a paddleboarder at sunset, and travel shots from Arizona, France, Madrid, and Sevilla.
+Ryan shoots film. The site shows a row of Ryan's film photos that drifts sideways on its own and can be dragged to browse, including portraits, a couple's shoot, an engagement shoot on the Brooklyn Bridge and in the rain in the West Village, a paddleboarder at sunset, a summer evening at a park pond, and travel shots from Arizona, France, Madrid, Sevilla, and a sunset swim in La Romana. Tapping a photo flips it over to show its title and the camera and film it was shot on (for example a Bronica SQ-A with Portra 800, a Fuji GA645zi, a Nikon L35AF, or an Olympus XA).
 
 - [Film](https://rburke.dev/#photography)
 

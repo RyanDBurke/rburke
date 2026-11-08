@@ -8,12 +8,8 @@ const roles: { text: string; red?: string; blue?: string }[] = [
   { text: 'Oil Pastel Art Painter', red: 'Art Painter' },
   { text: 'Basketball Junkie', blue: 'Basketball' },
   { text: 'Twenty Handicap Golfer', red: 'Golfer' },
-  { text: 'Sushi Enjoyer' },
-  { text: 'Morir Soñando Drinker', red: 'Morir' },
-  { text: 'Chai Consumer', blue: 'Chai' },
-  { text: 'Birkenstocks Owner' },
   { text: 'Frank Ocean Listener', red: 'Listener', blue: 'Ocean' },
-  { text: 'Diddy Kong Main' },
+  { text: 'Diddy Kong Main', red: 'Kong' },
 ]
 
 // Splits a descriptor into pieces, tagging the red and blue words with their color.

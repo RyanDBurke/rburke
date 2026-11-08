@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import ScrollCue from './ScrollCue.vue'
 import ScrollingHeading from './ScrollingHeading.vue'
 import { vReveal } from '../reveal'
+import { vScrollScale } from '../scrollScale'
 
 const links = [
   { href: 'mailto:ryanburketv@gmail.com', icon: '/icons/email.png', label: 'Email Ryan' },
@@ -21,6 +22,8 @@ const open = ref(false)
   <!-- Like the other sections, the folder sticks while this container scrolls past. -->
   <div class="contact-scroll">
   <section aria-label="Contact">
+    <!-- The folder grows as it scrolls up; the wrapper keeps that apart from the reveal's transform. -->
+    <div v-scroll-scale>
     <div
       v-reveal
       class="folder-scene"
@@ -77,6 +80,7 @@ const open = ref(false)
         <!-- Pocket line across the flap. -->
         <rect x="12" y="17.6" width="24" height="0.8" rx="0.4" fill="#ffffff" filter="url(#insetEdge)" />
       </svg>
+    </div>
     </div>
 
     <ScrollCue target="intro" label="back to top ↑" :marquee="false" />

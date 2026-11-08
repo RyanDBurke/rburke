@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { vScrollScale } from '../scrollScale'
 import BeanViewer from './BeanViewer.vue'
 import ScrollingHeading from './ScrollingHeading.vue'
 </script>
@@ -10,7 +11,7 @@ import ScrollingHeading from './ScrollingHeading.vue'
   <!-- Like Experience, the section sticks while its scroll container passes. -->
   <div class="bean-scroll">
     <section aria-label="Bean">
-      <BeanViewer />
+      <BeanViewer v-scroll-scale />
     </section>
   </div>
   </div>
