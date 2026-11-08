@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ScrollingHeading from './ScrollingHeading.vue'
+import Watermark from './Watermark.vue'
 import { vScrollScale } from '../scrollScale'
 
 // A round's hole-by-hole card: par and Ryan's score for holes 1-18.
@@ -59,6 +60,7 @@ function mark(score: number, par: number) {
   <div id="golf">
   <ScrollingHeading :words="['GOLF']" />
   <!-- Like the other sections, the list sticks while this container scrolls past. -->
+  <Watermark word="GOLF">
   <div class="golf-scroll">
     <section aria-label="Golf">
       <ol v-scroll-scale class="rounds">
@@ -101,6 +103,7 @@ function mark(score: number, par: number) {
       </ol>
     </section>
   </div>
+  </Watermark>
   </div>
 </template>
 

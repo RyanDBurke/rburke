@@ -40,3 +40,9 @@ main > section {
   html { scroll-behavior: auto; }
   .reveal { transform: none; transition: opacity 0.4s ease; }
 }
+
+/* Section tickers sit right under the previous section's watermark with only a small gap,
+   so nav jumps stop 4rem short to keep the floating nav off them. About keeps its own gap. */
+#experience, #bean, #photography, #golf, #contact {
+  scroll-margin-top: 4rem;
+}

@@ -3,6 +3,7 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import { vReveal } from '../reveal'
 import { vScrollScale } from '../scrollScale'
 import ScrollingHeading from './ScrollingHeading.vue'
+import Watermark from './Watermark.vue'
 
 // Bean's speech bubble pops up for a moment: once on its own when the About panel first
 // sticks, then again each time someone clicks or taps Bean.
@@ -46,7 +47,8 @@ onUnmounted(() => {
 <template>
   <!-- The heading sits above the paragraph; the nav link lands on it. -->
   <div id="about">
-  <ScrollingHeading :words="['ABOUT']" />
+  <ScrollingHeading class="after-intro" :words="['ABOUT']" />
+  <Watermark word="ABOUT">
   <div class="about-scroll">
     <section ref="panel" aria-label="About">
       <div v-reveal>
@@ -69,10 +71,17 @@ onUnmounted(() => {
       </div>
     </section>
   </div>
+  </Watermark>
   </div>
 </template>
 
 <style scoped>
+/* About follows the intro, which has no watermark, so its ticker keeps the full gap
+   that clears the floating nav. */
+.ticker.after-intro {
+  padding-top: 5rem;
+}
+
 .about-scroll {
   height: 150vh;
 }

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ScrollingHeading from './ScrollingHeading.vue'
+import Watermark from './Watermark.vue'
 import PhotoCarousel from './PhotoCarousel.vue'
 
 // Every image in src/assets/photography. Drop a photo in that folder to add it; list it in
@@ -63,6 +64,7 @@ const photos = Object.keys(files).sort().sort((a, b) => rank(a) - rank(b)).map(p
   <div id="photography">
   <ScrollingHeading :words="['FILM']" />
   <!-- Like Experience and Bean, the photos stick while this container scrolls past. -->
+  <Watermark word="FILM">
   <div class="photography-scroll">
   <section aria-label="Film photography">
     <!-- A drifting, draggable row of photos, at every screen size. -->
@@ -70,6 +72,7 @@ const photos = Object.keys(files).sort().sort((a, b) => rank(a) - rank(b)).map(p
     <PhotoCarousel :photos="photos" />
   </section>
   </div>
+  </Watermark>
   </div>
 </template>
 

@@ -20,9 +20,10 @@ const items = Array.from({ length: 10 }, (_, i) => words[i % words.length])
 </template>
 
 <style scoped>
-/* The top padding clears the floating nav. */
+/* A short top gap so the ticker sits right under the previous section's watermark.
+   Nav jumps stop 4rem short (scroll-margin in style.css) so the nav never covers it. */
 .ticker {
-  padding: 5rem 0 1rem;
+  padding: 1rem 0 1rem;
   width: 100%;
   overflow: hidden;
   color: #FDFBD4;

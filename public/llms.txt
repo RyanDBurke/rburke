@@ -31,11 +31,11 @@ Full-stack engineer with six years of experience architecting scalable distribut
 - Improved platform uptime to 99.7% and reduced severity incidents by 30% through service isolation, fault-tolerant messaging, retry policies, and graceful degradation.
 - Served as a technical subject matter expert for architecture decisions, design reviews, technical roadmaps, and code reviews, while mentoring fellow engineers.
 
-### nCov-19 Genome Variant (project on GitHub)
+### SARS-CoV-2 Genome Variant (project on GitHub)
 
-Tech: C, Dynamic Programming, Burrows-Wheeler Transform, Suffix Arrays, FM-Index
+Tech: C, TypeScript, Electron, Node.js, Dynamic Programming, Burrows-Wheeler Transform, Suffix Arrays, FM-Index, Playwright, GitHub Actions, Claude
 
-Seed-search tool used to compare read-variants to the nCov-19 virus genome using the Burrows-Wheeler transform, suffix arrays, the FM-Index, and core dynamic programming principles.
+A Windows desktop app and command-line tool that aligns sequencing reads to the SARS-CoV-2 genome and shows where they differ from it.
 
 - [Repository](https://github.com/RyanDBurke/coronavirus-genome-variant)
 

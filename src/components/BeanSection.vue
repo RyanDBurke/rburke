@@ -2,6 +2,7 @@
 import { vScrollScale } from '../scrollScale'
 import BeanViewer from './BeanViewer.vue'
 import ScrollingHeading from './ScrollingHeading.vue'
+import Watermark from './Watermark.vue'
 </script>
 
 <template>
@@ -9,11 +10,13 @@ import ScrollingHeading from './ScrollingHeading.vue'
   <div id="bean">
   <ScrollingHeading image="/images/bean.png" />
   <!-- Like Experience, the section sticks while its scroll container passes. -->
+  <Watermark word="BEAN">
   <div class="bean-scroll">
     <section aria-label="Bean">
       <BeanViewer v-scroll-scale />
     </section>
   </div>
+  </Watermark>
   </div>
 </template>
 

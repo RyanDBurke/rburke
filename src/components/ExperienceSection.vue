@@ -2,6 +2,7 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { vScrollScale } from '../scrollScale'
 import ScrollingHeading from './ScrollingHeading.vue'
+import Watermark from './Watermark.vue'
 
 // Each entry gets its own sticky panel, in this order. Descriptions are trusted, hand-written
 // HTML so phrases can be colored with the .red and .blue classes.
@@ -16,13 +17,12 @@ const jobs = [
     tech: ['.NET', 'C#', 'TypeScript', 'VueJs', 'Azure', 'SQL', 'RabbitMQ', 'Redis', 'Claude', 'Aspire', 'Docker', 'Microservices', 'Distributed Systems', 'REST APIs', 'Resilience Patterns'],
   },
   {
-    title: 'nCov-19 Genome Variant',
+    title: 'SARS-CoV-2 Genome Variant',
     at: 'on GitHub',
     link: 'https://github.com/RyanDBurke/coronavirus-genome-variant',
-    description: `Seed-search tool used to compare read-variants to the <span class="blue">nCov-19</span> virus genome using
-      the <span class="red">Burrows-Wheeler transform</span>, suffix arrays, the <span class="blue">FM-Index</span>, and core
-      <span class="red">dynamic programming</span> principles.`,
-    tech: ['C', 'Dynamic Programming', 'Burrows-Wheeler Transform', 'Suffix Arrays', 'FM-Index'],
+    description: `A <span class="blue">Windows desktop app</span> and <span class="red">command-line tool</span> that aligns
+      sequencing reads to the <span class="blue">SARS-CoV-2</span> genome and shows where they differ from it.`,
+    tech: ['C', 'TypeScript', 'Electron', 'Node.js', 'Dynamic Programming', 'Burrows-Wheeler Transform', 'Suffix Arrays', 'FM-Index', 'Playwright', 'GitHub Actions', 'Claude'],
   },
 ]
 
@@ -51,6 +51,7 @@ onUnmounted(() => {
   <div id="experience">
   <!-- The heading scrolls away normally; each entry's panel below then sticks on its own. -->
   <ScrollingHeading :words="['EXPERIENCE']" />
+  <Watermark word="EXPERIENCE">
   <div v-for="(job, i) in jobs" :key="job.title" class="experience-scroll">
     <section ref="sections" :aria-label="job.title" :class="{ visible: visible[i] }">
       <!-- The title, summary, and tech line fade in in order. -->
@@ -75,6 +76,7 @@ onUnmounted(() => {
       </div>
     </section>
   </div>
+  </Watermark>
   </div>
 </template>
 

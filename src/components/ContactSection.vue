@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import ScrollCue from './ScrollCue.vue'
 import ScrollingHeading from './ScrollingHeading.vue'
+import Watermark from './Watermark.vue'
 import { vReveal } from '../reveal'
 import { vScrollScale } from '../scrollScale'
 
@@ -20,6 +21,7 @@ const open = ref(false)
   <div id="contact">
   <ScrollingHeading :words="['CONTACT']" />
   <!-- Like the other sections, the folder sticks while this container scrolls past. -->
+  <Watermark word="CONTACT">
   <div class="contact-scroll">
   <section aria-label="Contact">
     <!-- The folder grows as it scrolls up; the wrapper keeps that apart from the reveal's transform. -->
@@ -86,6 +88,7 @@ const open = ref(false)
     <ScrollCue target="intro" label="back to top ↑" :marquee="false" />
   </section>
   </div>
+  </Watermark>
   </div>
 </template>
 
