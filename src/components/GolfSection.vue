@@ -25,9 +25,9 @@ const rounds = [
         <li v-for="(round, i) in rounds" :key="round.date" :class="{ best: i === 0 }">
           <!-- <s> marks a record that no longer stands. -->
           <component :is="i === 0 ? 'span' : 's'">
-            <!-- Only the current best gets Ryan's picture. -->
+            <!-- Only the current best gets Ryan's picture and the golf icon. -->
             shot my <img v-if="i === 0" class="inline-pic" src="/images/me.png" alt="" width="773" height="977"> personal best <span class="score">{{ round.score }}</span>
-            on {{ round.date }} at <span class="course">{{ round.course }}</span>
+            on {{ round.date }} at <img v-if="i === 0" class="inline-pic" src="/images/golf-icon.png" alt="" width="256" height="248"> <span class="course">{{ round.course }}</span>
           </component>
         </li>
       </ol>
@@ -66,7 +66,7 @@ section {
   text-align: center;
 }
 
-/* Ryan's picture, sitting in the line of text like the About section's. */
+/* Ryan's picture and the golf-hole icon, sitting in the line of text like the About section's. */
 .inline-pic {
   display: inline-block;
   width: auto;
