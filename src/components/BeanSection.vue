@@ -26,6 +26,7 @@ section {
   position: sticky;
   top: 0;
   height: 100vh;
+  height: 100svh; /* the visible screen with the phone toolbar showing, like the intro */
   /* The top padding clears the floating nav. */
   padding: 5rem 1rem 2rem;
 }

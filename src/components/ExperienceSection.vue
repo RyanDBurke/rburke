@@ -91,6 +91,7 @@ section {
   position: sticky;
   top: 0;
   height: 100vh;
+  height: 100svh; /* the visible screen with the phone toolbar showing, like the intro */
   overflow-x: clip;
   padding: 5rem 1rem;
 }

@@ -101,6 +101,7 @@ section {
   position: sticky;
   top: 0;
   height: 100vh;
+  height: 100svh; /* the visible screen with the phone toolbar showing, like the intro */
   /* The global `main > section` rule no longer reaches this section now that it sits under
      its heading, so it keeps the page from widening sideways itself. */
   overflow-x: clip;
