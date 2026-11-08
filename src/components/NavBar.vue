@@ -8,7 +8,7 @@ const sections = [
   { id: 'bean', label: 'bean', act: 'ACT III' },
   { id: 'photography', label: 'film', act: 'ACT IV' },
   { id: 'golf', label: 'golf', act: 'ACT V' },
-  { id: 'contact', label: 'contact', act: 'ACT VI' },
+  { id: 'contact', label: 'contact', act: 'EPILOGUE' },
 ]
 
 const open = ref(false)
