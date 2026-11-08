@@ -7,7 +7,7 @@ const roles: { text: string; red?: string; blue?: string }[] = [
   { text: 'Film Photographer', blue: 'Film' },
   { text: 'Oil Pastel Art Painter', red: 'Art Painter' },
   { text: 'Basketball Junkie', blue: 'Basketball' },
-  { text: 'Twenty Handicap Golfer', red: 'Golfer' },
+  { text: 'Twenty-Two Handicap Golfer', red: 'Golfer' },
   { text: 'Frank Ocean Listener', red: 'Listener', blue: 'Ocean' },
   { text: 'Diddy Kong Main', red: 'Kong' },
 ]
