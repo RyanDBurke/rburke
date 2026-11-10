@@ -138,7 +138,7 @@ p {
   display: none;
 }
 
-/* Bean's picture, with an 8-bit speech bubble that pops up above the text for a moment
+/* Bean's picture, with an 8-bit speech bubble that pops up beneath him for a moment
    (see popBubble). */
 .bean-tip {
   position: relative;
@@ -156,11 +156,11 @@ p {
 .bubble {
   --px: 0.28em; /* one "pixel" of the bubble, in the bubble's own font size */
   position: absolute;
-  bottom: calc(100% + 0.3em);
+  top: calc(100% + 0.3em);
   left: 50%;
   z-index: 10;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse; /* tail on top, pointing up at Bean */
   align-items: center;
   font-family: 'Press Start 2P', ui-monospace, monospace;
   font-size: 0.3em;
@@ -170,7 +170,7 @@ p {
   color: #0C0C0C;
   pointer-events: none;
   opacity: 0;
-  transform: translate(-50%, 0.6em);
+  transform: translate(-50%, -0.6em);
   /* Moves in two hard steps, like an old game sprite. */
   transition: opacity 0.16s steps(2), transform 0.16s steps(2);
   /* A hard, unblurred outline around the box and tail, so it reads over the text behind it. */
@@ -196,13 +196,13 @@ p {
   );
 }
 
-/* The tail: a little staircase pointing down at Bean. */
+/* The tail: a little staircase pointing up at Bean. */
 .bubble-tail {
   width: calc(var(--px) * 4);
   height: calc(var(--px) * 3);
-  margin-top: -1px; /* no seam between box and tail */
+  margin-bottom: -1px; /* no seam between box and tail */
   background: #FDFBD4;
-  clip-path: polygon(0 0, 100% 0, 100% 34%, 75% 34%, 75% 67%, 50% 67%, 50% 100%, 25% 100%, 25% 67%, 0 67%);
+  clip-path: polygon(0 100%, 100% 100%, 100% 66%, 75% 66%, 75% 33%, 50% 33%, 50% 0, 25% 0, 25% 33%, 0 33%);
 }
 
 @media (prefers-reduced-motion: reduce) {
