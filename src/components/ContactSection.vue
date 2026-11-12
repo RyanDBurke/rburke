@@ -6,10 +6,12 @@ import Watermark from './Watermark.vue'
 import { vReveal } from '../reveal'
 import { vScrollScale } from '../scrollScale'
 
-const links = [
-  { href: 'mailto:ryanburketv@gmail.com', icon: '/icons/email.png', label: 'Email Ryan' },
-  { href: '/RyanBurkeResume.pdf', icon: '/icons/resume.png', label: 'Download Ryan\'s resume', download: 'RyanBurkeResume.pdf' },
-  { href: 'https://www.linkedin.com/in/ryanburke77/', icon: '/icons/linkedin.png', label: 'Ryan on LinkedIn' },
+// `slot` picks the fan position: 1 left, 2 center, 3 right.
+const links: { href: string, icon: string, label: string, slot: number, download?: string }[] = [
+  { href: 'mailto:ryanburketv@gmail.com', icon: '/icons/email.png', label: 'Email Ryan', slot: 1 },
+  // Resume hidden for now; uncomment to bring it back.
+  // { href: '/RyanBurkeResume.pdf', icon: '/icons/resume.png', label: 'Download Ryan\'s resume', download: 'RyanBurkeResume.pdf', slot: 2 },
+  { href: 'https://www.linkedin.com/in/ryanburke77/', icon: '/icons/linkedin.png', label: 'Ryan on LinkedIn', slot: 3 },
 ]
 
 // Hover opens the folder on desktop; tapping toggles it on touch screens, which can't hover.
@@ -49,9 +51,9 @@ const open = ref(false)
       <!-- Contact icons tucked inside, which fan out when the folder opens. -->
       <div class="files">
         <a
-          v-for="(link, i) in links"
+          v-for="link in links"
           :key="link.href"
-          :class="`file file-${i + 1}`"
+          :class="`file file-${link.slot}`"
           :href="link.href"
           :aria-label="link.label"
           :tabindex="open ? 0 : -1"

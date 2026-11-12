@@ -74,4 +74,3 @@ The Notes moderation page and API are private operational endpoints, not public 
 - [Website](https://rburke.dev)
 - [GitHub](https://github.com/RyanDBurke)
 - [LinkedIn](https://www.linkedin.com/in/ryanburke77/)
-- [Resume (PDF)](https://rburke.dev/RyanBurkeResume.pdf)
