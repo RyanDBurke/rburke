@@ -17,6 +17,8 @@ const revealed = ref<boolean[]>([])
 const strikes = ref(0)
 const pot = ref(0)
 const awardedTo = ref<number | null>(null)
+// The question stays hidden until the host reveals it (they read it aloud first).
+const questionShown = ref(false)
 const steal = computed(() => strikes.value === 3 && awardedTo.value === null)
 // How many big ✕s are flashing on screen right now.
 const flash = ref(0)
@@ -31,9 +33,15 @@ function clearBoard() {
   flash.value = 0
 }
 
+function showQuestion() {
+  questionShown.value = true
+  sounds.question()
+}
+
 function startRound(i: number) {
   index.value = i
   clearBoard()
+  questionShown.value = false
   phase.value = 'question'
 }
 
@@ -154,7 +162,11 @@ function onKey(e: KeyboardEvent) {
   if (target.closest('input, textarea')) return
   // Enter and Space already press a focused button; don't also act on them here.
   if ((key === 'enter' || key === ' ') && target.closest('button')) return
-  if (phase.value === 'question' && ['enter', ' ', 'arrowright'].includes(key)) phase.value = 'round'
+  // On the question page these first show the question, then go to the board.
+  if (phase.value === 'question' && ['enter', ' ', 'arrowright'].includes(key)) {
+    if (questionShown.value) phase.value = 'round'
+    else showQuestion()
+  }
   else if (phase.value !== 'round') return
   else if (/^[1-8]$/.test(key)) reveal(Number(key) - 1)
   else if (key === 'x') strike()
@@ -207,9 +219,15 @@ onUnmounted(() => {
     <!-- Each round opens on its question, full page, before the board. -->
     <section v-else-if="phase === 'question'" class="question-page">
       <span class="round-label">Round {{ index + 1 }} of {{ rounds.length }}</span>
-      <h2 class="question-big">{{ round.question }}</h2>
-      <div class="row">
-        <button type="button" class="primary" @click="phase = 'round'">Show the board</button>
+      <template v-if="questionShown">
+        <h2 class="question-big">{{ round.question }}</h2>
+        <div class="row">
+          <button type="button" class="primary" @click="phase = 'round'">Show the board</button>
+        </div>
+      </template>
+      <!-- Before it's shown, the button sits where the question will appear. -->
+      <div v-else class="row reveal-question">
+        <button type="button" class="primary" @click="showQuestion">Show question</button>
       </div>
     </section>
 
@@ -258,9 +276,12 @@ onUnmounted(() => {
       <footer class="controls">
         <button type="button" @click="phase = 'question'">Show question <kbd>Q</kbd></button>
         <button type="button" class="strike" @click="strike">✕ Strike <kbd>X</kbd></button>
-        <button v-for="(team, t) in teams" :key="t" type="button" :disabled="awardedTo !== null" @click="award(t)">
-          Award {{ pot }} to {{ team.name }}
-        </button>
+        <!-- Only once there are points to give. -->
+        <template v-if="pot > 0">
+          <button v-for="(team, t) in teams" :key="t" type="button" :disabled="awardedTo !== null" @click="award(t)">
+            Award {{ pot }} to {{ team.name }}
+          </button>
+        </template>
         <button type="button" :disabled="nextHidden === -1" @click="reveal(nextHidden)">
           Reveal{{ nextHidden === -1 ? '' : ` ${nextHidden + 1}` }}
         </button>
@@ -640,6 +661,15 @@ h1 {
   text-wrap: balance;
   overflow-wrap: break-word;
   animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-question {
+  align-self: center;
+}
+
+.reveal-question button {
+  font-size: 1.3rem;
+  padding: 0.9rem 2rem;
 }
 
 @keyframes rise {

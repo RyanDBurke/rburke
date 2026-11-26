@@ -45,6 +45,7 @@ function playClip(src: string, start = 0) {
 
 const DING = '/audio/feud-ding.mp3'
 const BUZZER = '/audio/feud-buzzer.mp3'
+const SHOW_QUESTION = '/audio/feud-show-question.mp3'
 
 const INTRO = '/audio/feud-intro.mp3'
 
@@ -52,6 +53,7 @@ const INTRO = '/audio/feud-intro.mp3'
 export function preloadSounds() {
   clip(DING)
   clip(BUZZER)
+  clip(SHOW_QUESTION)
   clip(INTRO)
 }
 
@@ -88,6 +90,7 @@ function tone(freq: number, start: number, length: number, type: OscillatorType 
 
 export const sounds = {
   reveal() { playClip(DING, 1.07) }, // the ding file has a lead-in; start at 0:01.07
-  strike() { playClip(BUZZER, 1.08) }, // the buzzer file has a lead-in too; start at 0:01.08
+  strike() { playClip(BUZZER, 1.08) },
+  question() { playClip(SHOW_QUESTION) }, // the buzzer file has a lead-in too; start at 0:01.08
   award() { [523, 659, 784, 1047].forEach((f, i) => tone(f, i * 0.11, 0.45, 'triangle')) },
 }
