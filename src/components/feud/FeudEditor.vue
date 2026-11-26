@@ -10,8 +10,13 @@ const copy = (rounds: Round[]): Round[] => JSON.parse(JSON.stringify(rounds))
 const draft = ref(copy(props.rounds))
 const saved = ref(JSON.stringify(props.rounds))
 const dirty = computed(() => JSON.stringify(draft.value) !== saved.value)
-const status = ref('')
+const saveError = ref('')
+const justSaved = ref(false)
 const busy = ref(false)
+// A save error stays until the next save; otherwise "Saved." only shows until the next edit.
+const status = computed(() => saveError.value || (dirty.value ? 'Unsaved changes' : justSaved.value ? 'Saved.' : ''))
+// The server accepts at most 50 rounds.
+const MAX_ROUNDS = 50
 
 function addRound() {
   draft.value.push({ question: '', answers: [{ text: '', points: 0 }] })
@@ -24,16 +29,17 @@ function move(i: number, by: number) {
 
 async function save() {
   busy.value = true
-  status.value = ''
+  saveError.value = ''
+  justSaved.value = false
   try {
     const rounds = await feudRequest('PUT', { password: props.password, rounds: draft.value })
     // The server sorts answers by points, so show its version.
     draft.value = copy(rounds)
     saved.value = JSON.stringify(rounds)
     emit('saved', rounds)
-    status.value = 'Saved.'
+    justSaved.value = true
   } catch (e) {
-    status.value = (e as Error).message
+    saveError.value = (e as Error).message
   } finally {
     busy.value = false
   }
@@ -49,7 +55,7 @@ function back() {
     <header>
       <button type="button" @click="back">← Back</button>
       <h2>Edit questions</h2>
-      <span class="status" role="status">{{ status || (dirty ? 'Unsaved changes' : '') }}</span>
+      <span class="status" role="status">{{ status }}</span>
       <button type="button" class="primary" :disabled="busy || !dirty" @click="save">{{ busy ? 'Saving…' : 'Save' }}</button>
     </header>
 
@@ -73,7 +79,7 @@ function back() {
       <button v-if="round.answers.length < 8" type="button" @click="round.answers.push({ text: '', points: 0 })">+ Answer</button>
     </fieldset>
 
-    <button type="button" class="add-round" @click="addRound">+ Round</button>
+    <button type="button" class="add-round" :disabled="draft.length >= MAX_ROUNDS" @click="addRound">+ Round</button>
   </div>
 </template>
 

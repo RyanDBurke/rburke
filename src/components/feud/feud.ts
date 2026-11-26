@@ -4,10 +4,12 @@ export interface Answer { text: string, points: number }
 export interface Round { question: string, answers: Answer[] }
 
 const errors: Record<number, string> = {
-  400: 'Every round needs a question and 1–8 answers, each with text and 0–100 points.',
+  400: 'Up to 50 rounds, each with a question and 1–8 answers that have text and 0–100 points.',
   401: 'Wrong password.',
+  413: 'That’s too much to save at once. Try shorter questions or fewer rounds.',
   429: 'Too many tries. Wait a minute and try again.',
-  503: 'The game isn’t set up on the server yet.',
+  // 503 covers both a missing password setting and a database error.
+  503: 'The game server isn’t available right now. Try again in a moment.',
 }
 
 // POST loads the rounds (and doubles as the password check); PUT saves them.

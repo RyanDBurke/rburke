@@ -2,7 +2,7 @@
 // The host-run game. Each round opens on a full-page question, then the board, where the host
 // clicks tiles to reveal answers, adds strikes, and awards the round's pot to a team.
 // Keys: Enter/Space/→ question page to board, 1–8 reveal, X strike, Q back to the question page.
-import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { introMusic, preloadSounds, sounds, type Round } from './feud'
 
 const props = defineProps<{ rounds: Round[] }>()
@@ -121,8 +121,9 @@ function quit() {
 }
 
 function toggleFullscreen() {
-  if (document.fullscreenElement) void document.exitFullscreen()
-  else void document.documentElement.requestFullscreen?.()
+  // Browsers can refuse fullscreen; that's fine, so the rejection is ignored.
+  if (document.fullscreenElement) document.exitFullscreen().catch(() => {})
+  else document.documentElement.requestFullscreen?.().catch(() => {})
 }
 
 // Settings menu behind the gear in the bottom-right corner.
@@ -142,7 +143,8 @@ const winner = computed(() => {
 })
 
 function onKey(e: KeyboardEvent) {
-  if (e.ctrlKey || e.metaKey || e.altKey) return
+  // Holding a key down shouldn't repeat it (e.g. three strikes from one long press of X).
+  if (e.repeat || e.ctrlKey || e.metaKey || e.altKey) return
   const target = e.target as HTMLElement
   const key = e.key.toLowerCase()
   if (settingsOpen.value) {
@@ -168,8 +170,9 @@ onMounted(() => {
   preloadSounds()
   playMusic()
 })
+// Before unmount, while the music element's ref is still set (it's cleared during unmount).
+onBeforeUnmount(stopMusic)
 onUnmounted(() => {
-  stopMusic()
   introMusic.stop()
   window.removeEventListener('keydown', onKey)
   document.removeEventListener('fullscreenchange', syncFullscreen)
@@ -214,7 +217,13 @@ onUnmounted(() => {
       <header class="scoreboard">
         <div v-for="(team, t) in teams" :key="t" class="team" :class="[`team-${t}`, { won: awardedTo === t }]">
           <input v-model="team.name" class="team-name" maxlength="24" :aria-label="`Team ${t + 1} name`">
-          <input v-model.number="team.score" class="team-score" type="number" :aria-label="`${team.name} score`">
+          <input
+            v-model.number="team.score"
+            class="team-score"
+            type="number"
+            :aria-label="`${team.name} score`"
+            @change="team.score = Number(team.score) || 0"
+          >
         </div>
         <div class="pot">
           <span class="round-label">Round {{ index + 1 }} of {{ rounds.length }}</span>

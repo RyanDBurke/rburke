@@ -7,8 +7,9 @@ import { feudRequest, type Round } from './feud/feud'
 // Loaded only once someone logs in, so the rest of the site doesn't carry the game's code.
 const FeudGame = defineAsyncComponent(() => import('./feud/FeudGame.vue'))
 const FeudEditor = defineAsyncComponent(() => import('./feud/FeudEditor.vue'))
+const FeudAnswers = defineAsyncComponent(() => import('./feud/FeudAnswers.vue'))
 
-const view = ref<'closed' | 'login' | 'menu' | 'play' | 'edit'>('closed')
+const view = ref<'closed' | 'login' | 'menu' | 'play' | 'edit' | 'answers'>('closed')
 const password = ref('')
 const rounds = ref<Round[]>([])
 const error = ref('')
@@ -26,7 +27,10 @@ async function login() {
   busy.value = true
   error.value = ''
   try {
-    rounds.value = await feudRequest('POST', { password: password.value })
+    const loaded = await feudRequest('POST', { password: password.value })
+    // If the host cancelled while this was loading, stay closed.
+    if (view.value !== 'login') return
+    rounds.value = loaded
     view.value = 'menu'
   } catch (e) {
     error.value = (e as Error).message
@@ -37,7 +41,7 @@ async function login() {
 
 // Closing forgets the password, so the next person has to enter it again.
 function close() {
-  if (document.fullscreenElement) void document.exitFullscreen()
+  if (document.fullscreenElement) document.exitFullscreen().catch(() => {})
   view.value = 'closed'
   password.value = ''
   showPassword.value = false
@@ -53,6 +57,7 @@ watch(view, v => { document.body.style.overflow = v === 'closed' ? '' : 'hidden'
 
   <div v-if="view !== 'closed'" class="feud-overlay" role="dialog" aria-modal="true" aria-label="Thanksgiving Feud">
     <FeudGame v-if="view === 'play'" :rounds="rounds" @quit="view = 'menu'" />
+    <FeudAnswers v-else-if="view === 'answers'" :rounds="rounds" @back="view = 'menu'" />
     <FeudEditor
       v-else-if="view === 'edit'"
       :password="password"
@@ -89,6 +94,7 @@ watch(view, v => { document.body.style.overflow = v === 'closed' ? '' : 'hidden'
       <div class="feud-actions column">
         <button type="button" class="primary" :disabled="!rounds.length" @click="view = 'play'">Start game</button>
         <button type="button" @click="view = 'edit'">Edit questions</button>
+        <button type="button" :disabled="!rounds.length" @click="view = 'answers'">Answers</button>
         <button type="button" @click="close">Close</button>
       </div>
     </div>
