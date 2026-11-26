@@ -14,11 +14,49 @@ async function admin(req,env) {
   return await crypto.subtle.verify('RSASSA-PKCS1-v1_5',key,decode(s),new TextEncoder().encode(h+'.'+p));
  } catch { return false; }
 }
+// Thanksgiving Feud party game. The questions live in D1, never in the public repo or site bundle,
+// and every read or write needs FEUD_PASSWORD. POST {password} loads; PUT {password,rounds} saves.
+async function feud(req,env) {
+ if(!['POST','PUT'].includes(req.method)) return json({error:'Not found'},404);
+ if(!env.FEUD_PASSWORD) return json({error:'Not configured'},503);
+ if(env.FEUD_LIMITER&&!(await env.FEUD_LIMITER.limit({key:req.headers.get('CF-Connecting-IP')||'unknown'})).success) return json({error:'Try later'},429);
+ if(Number(req.headers.get('Content-Length')||0)>65536) return json({error:'Too large'},413);
+ const raw=await req.text(); if(raw.length>65536) return json({error:'Too large'},413);
+ let body; try {body=JSON.parse(raw);}catch{return json({error:'Invalid JSON'},400);}
+ // Comparing hashes keeps the check the same length whatever was typed.
+ if(typeof body?.password!=='string'||await hash(body.password)!==await hash(env.FEUD_PASSWORD)) return json({error:'Wrong password'},401);
+ if(req.method==='POST') {
+  const row=await env.DB.prepare('SELECT rounds FROM feud WHERE id=1').first();
+  return json({rounds:row?JSON.parse(row.rounds):[]});
+ }
+ const rounds=cleanRounds(body.rounds);
+ if(!rounds) return json({error:'Invalid rounds'},400);
+ await env.DB.prepare('INSERT INTO feud(id,rounds,updated) VALUES(1,?,CURRENT_TIMESTAMP) ON CONFLICT(id) DO UPDATE SET rounds=excluded.rounds,updated=excluded.updated').bind(JSON.stringify(rounds)).run();
+ return json({rounds});
+}
+// Up to 50 rounds, each a question with 1–8 answers worth 0–100 points, sorted highest first.
+function cleanRounds(rounds) {
+ if(!Array.isArray(rounds)||rounds.length>50) return null;
+ const out=[];
+ for(const round of rounds) {
+  const question=typeof round?.question==='string'?round.question.trim():'';
+  if(!question||question.length>300||!Array.isArray(round.answers)||!round.answers.length||round.answers.length>8) return null;
+  const answers=[];
+  for(const answer of round.answers) {
+   const text=typeof answer?.text==='string'?answer.text.trim():'';
+   if(!text||text.length>80||!Number.isInteger(answer.points)||answer.points<0||answer.points>100) return null;
+   answers.push({text,points:answer.points});
+  }
+  out.push({question,answers:answers.sort((a,b)=>b.points-a.points)});
+ }
+ return out;
+}
 export default {async fetch(req,env) {
  try {
  const url=new URL(req.url), path=url.pathname;
  if(!path.startsWith('/api/')&&path!=='/admin/notes') return env.ASSETS.fetch(req);
  if(req.method!=='GET'&&req.headers.get('Origin')!==url.origin) return json({error:'Forbidden'},403);
+ if(path==='/api/feud') return await feud(req,env);
  const isAdmin=path.startsWith('/api/admin/')||path==='/admin/notes';
  if(isAdmin&&!await admin(req,env)) return json({error:'Unauthorized'},401);
  if(path==='/admin/notes') return new Response(adminHtml,{headers:{'Content-Type':'text/html','Cache-Control':'no-store','Content-Security-Policy':"default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; frame-ancestors 'none'"}});

@@ -7,6 +7,7 @@ import BeanSection from './components/BeanSection.vue'
 import PhotographySection from './components/PhotographySection.vue'
 import GolfSection from './components/GolfSection.vue'
 import ContactSection from './components/ContactSection.vue'
+import FeudSection from './components/FeudSection.vue'
 </script>
 
 <template>
@@ -20,4 +21,5 @@ import ContactSection from './components/ContactSection.vue'
     <GolfSection />
     <ContactSection />
   </main>
+  <FeudSection />
 </template>
