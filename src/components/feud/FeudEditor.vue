@@ -18,6 +18,13 @@ const status = computed(() => saveError.value || (dirty.value ? 'Unsaved changes
 // The server accepts at most 50 rounds.
 const MAX_ROUNDS = 50
 
+// Each round's answers share 100 points, like a survey of 100 people.
+const TOTAL_POINTS = 100
+
+function pointsLeft(round: Round) {
+  return TOTAL_POINTS - round.answers.reduce((sum, a) => sum + (Number(a.points) || 0), 0)
+}
+
 function addRound() {
   draft.value.push({ question: '', answers: [{ text: '', points: 0 }] })
 }
@@ -76,7 +83,12 @@ function back() {
         <input v-model.number="answer.points" type="number" min="0" max="100" step="1" aria-label="Points">
         <button type="button" aria-label="Remove answer" @click="round.answers.splice(j, 1)">✕</button>
       </div>
-      <button v-if="round.answers.length < 8" type="button" @click="round.answers.push({ text: '', points: 0 })">+ Answer</button>
+      <div class="round-footer">
+        <button v-if="round.answers.length < 8" type="button" @click="round.answers.push({ text: '', points: 0 })">+ Answer</button>
+        <span class="points-left" :class="{ over: pointsLeft(round) < 0 }">
+          {{ pointsLeft(round) < 0 ? `${-pointsLeft(round)} points over ${TOTAL_POINTS}` : `${pointsLeft(round)} of ${TOTAL_POINTS} points left` }}
+        </span>
+      </div>
     </fieldset>
 
     <button type="button" class="add-round" :disabled="draft.length >= MAX_ROUNDS" @click="addRound">+ Round</button>
@@ -181,8 +193,24 @@ button.danger {
   font-weight: 400;
 }
 
-fieldset > button,
 .add-round {
   justify-self: start;
+}
+
+.round-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.points-left {
+  margin-left: auto;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.points-left.over {
+  color: #f87171;
+  opacity: 1;
 }
 </style>
