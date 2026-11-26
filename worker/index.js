@@ -16,8 +16,11 @@ async function admin(req,env) {
 }
 // Thanksgiving Feud party game. The questions live in D1, never in the public repo or site bundle,
 // and every read or write needs FEUD_PASSWORD. POST {password} loads; PUT {password,rounds} saves.
+// The game shuts off at 3am EST on Nov 27, 2026 (08:00 UTC); after that the API acts like it doesn't exist.
+// To bring it back, move this date and FEUD_CLOSES in src/components/feud/feud.ts.
+const FEUD_CLOSES=Date.UTC(2026,10,27,8);
 async function feud(req,env) {
- if(!['POST','PUT'].includes(req.method)) return json({error:'Not found'},404);
+ if(Date.now()>=FEUD_CLOSES||!['POST','PUT'].includes(req.method)) return json({error:'Not found'},404);
  if(!env.FEUD_PASSWORD) return json({error:'Not configured'},503);
  if(env.FEUD_LIMITER&&!(await env.FEUD_LIMITER.limit({key:req.headers.get('CF-Connecting-IP')||'unknown'})).success) return json({error:'Try later'},429);
  if(Number(req.headers.get('Content-Length')||0)>65536) return json({error:'Too large'},413);

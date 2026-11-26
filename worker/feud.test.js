@@ -31,3 +31,14 @@ test('rejects bad rounds, other origins, and an unset password',async()=>{
  assert.equal((await call(env,'POST',{password:'hunter2'},'https://other.example')).status,403);
  assert.equal((await call(fixture({FEUD_PASSWORD:''}),'POST',{password:''})).status,503);
 });
+
+test('the API closes for good at 3am EST on Nov 27, 2026',async()=>{
+ const env=fixture(),now=Date.now;
+ try {
+  Date.now=()=>Date.UTC(2026,10,27,7,59);
+  assert.equal((await call(env,'POST',{password:'hunter2'})).status,200);
+  Date.now=()=>Date.UTC(2026,10,27,8);
+  assert.equal((await call(env,'POST',{password:'hunter2'})).status,404);
+  assert.equal((await call(env,'PUT',{password:'hunter2',rounds:[]})).status,404);
+ } finally { Date.now=now; }
+});

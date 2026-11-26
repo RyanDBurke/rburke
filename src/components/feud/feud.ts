@@ -3,9 +3,14 @@
 export interface Answer { text: string, points: number }
 export interface Round { question: string, answers: Answer[] }
 
+// The game disappears from the site at 3am EST on Nov 27, 2026 (08:00 UTC).
+// To bring it back, move this date and FEUD_CLOSES in worker/index.js.
+export const FEUD_CLOSES = Date.UTC(2026, 10, 27, 8)
+
 const errors: Record<number, string> = {
   400: 'Up to 50 rounds, each with a question and 1–8 answers that have text and 0–100 points.',
   401: 'Wrong password.',
+  404: 'The game is closed.',
   413: 'That’s too much to save at once. Try shorter questions or fewer rounds.',
   429: 'Too many tries. Wait a minute and try again.',
   // 503 covers both a missing password setting and a database error.

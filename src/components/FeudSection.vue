@@ -1,13 +1,18 @@
 <script setup lang="ts">
 // Temporary: a full-width button at the bottom of the site that opens the password-gated
 // Thanksgiving Feud party game. Remove this component (and /api/feud) to take it down.
-import { defineAsyncComponent, ref, watch } from 'vue'
-import { feudRequest, type Round } from './feud/feud'
+import { defineAsyncComponent, onMounted, ref, watch } from 'vue'
+import { FEUD_CLOSES, feudRequest, type Round } from './feud/feud'
 
 // Loaded only once someone logs in, so the rest of the site doesn't carry the game's code.
 const FeudGame = defineAsyncComponent(() => import('./feud/FeudGame.vue'))
 const FeudEditor = defineAsyncComponent(() => import('./feud/FeudEditor.vue'))
 const FeudAnswers = defineAsyncComponent(() => import('./feud/FeudAnswers.vue'))
+
+// Shown only in the browser and only before the closing time, so the pre-rendered page
+// crawlers read never contains the button, and after closing nobody sees it at all.
+const available = ref(false)
+onMounted(() => { available.value = Date.now() < FEUD_CLOSES })
 
 const view = ref<'closed' | 'login' | 'menu' | 'play' | 'edit' | 'answers'>('closed')
 const password = ref('')
@@ -53,52 +58,54 @@ watch(view, v => { document.body.style.overflow = v === 'closed' ? '' : 'hidden'
 </script>
 
 <template>
-  <button class="feud-launch" type="button" @click="view = 'login'">PLAY THANKSGIVING FEUD</button>
+  <template v-if="available">
+    <button class="feud-launch" type="button" @click="view = 'login'">PLAY THANKSGIVING FEUD</button>
 
-  <div v-if="view !== 'closed'" class="feud-overlay" role="dialog" aria-modal="true" aria-label="Thanksgiving Feud">
-    <FeudGame v-if="view === 'play'" :rounds="rounds" @quit="view = 'menu'" />
-    <FeudAnswers v-else-if="view === 'answers'" :rounds="rounds" @back="view = 'menu'" />
-    <FeudEditor
-      v-else-if="view === 'edit'"
-      :password="password"
-      :rounds="rounds"
-      @saved="r => rounds = r"
-      @back="view = 'menu'"
-    />
+    <div v-if="view !== 'closed'" class="feud-overlay" role="dialog" aria-modal="true" aria-label="Thanksgiving Feud">
+      <FeudGame v-if="view === 'play'" :rounds="rounds" @quit="view = 'menu'" />
+      <FeudAnswers v-else-if="view === 'answers'" :rounds="rounds" @back="view = 'menu'" />
+      <FeudEditor
+        v-else-if="view === 'edit'"
+        :password="password"
+        :rounds="rounds"
+        @saved="r => rounds = r"
+        @back="view = 'menu'"
+      />
 
-    <form v-else-if="view === 'login'" class="feud-panel" @submit.prevent="login">
-      <h2>Thanksgiving Feud</h2>
-      <label>
-        Host password
-        <span class="password-field">
-          <input ref="passwordInput" v-model="password" :type="showPassword ? 'text' : 'password'" autocomplete="current-password" required autofocus>
-          <button
-            type="button"
-            class="toggle-password"
-            :aria-pressed="showPassword"
-            :aria-label="showPassword ? 'Hide password' : 'Show password'"
-            @click="togglePassword"
-          >{{ showPassword ? 'Hide' : 'Show' }}</button>
-        </span>
-      </label>
-      <p v-if="error" class="feud-error" role="alert">{{ error }}</p>
-      <div class="feud-actions">
-        <button type="button" @click="close">Cancel</button>
-        <button type="submit" class="primary" :disabled="busy">{{ busy ? 'Checking…' : 'Enter' }}</button>
-      </div>
-    </form>
+      <form v-else-if="view === 'login'" class="feud-panel" @submit.prevent="login">
+        <h2>Thanksgiving Feud</h2>
+        <label>
+          Host password
+          <span class="password-field">
+            <input ref="passwordInput" v-model="password" :type="showPassword ? 'text' : 'password'" autocomplete="current-password" required autofocus>
+            <button
+              type="button"
+              class="toggle-password"
+              :aria-pressed="showPassword"
+              :aria-label="showPassword ? 'Hide password' : 'Show password'"
+              @click="togglePassword"
+            >{{ showPassword ? 'Hide' : 'Show' }}</button>
+          </span>
+        </label>
+        <p v-if="error" class="feud-error" role="alert">{{ error }}</p>
+        <div class="feud-actions">
+          <button type="button" @click="close">Cancel</button>
+          <button type="submit" class="primary" :disabled="busy">{{ busy ? 'Checking…' : 'Enter' }}</button>
+        </div>
+      </form>
 
-    <div v-else class="feud-panel">
-      <h2>Thanksgiving Feud</h2>
-      <p>{{ rounds.length }} round{{ rounds.length === 1 ? '' : 's' }} ready.</p>
-      <div class="feud-actions column">
-        <button type="button" class="primary" :disabled="!rounds.length" @click="view = 'play'">Start game</button>
-        <button type="button" @click="view = 'edit'">Edit questions</button>
-        <button type="button" :disabled="!rounds.length" @click="view = 'answers'">Answers</button>
-        <button type="button" @click="close">Close</button>
+      <div v-else class="feud-panel">
+        <h2>Thanksgiving Feud</h2>
+        <p>{{ rounds.length }} round{{ rounds.length === 1 ? '' : 's' }} ready.</p>
+        <div class="feud-actions column">
+          <button type="button" class="primary" :disabled="!rounds.length" @click="view = 'play'">Start game</button>
+          <button type="button" @click="view = 'edit'">Edit questions</button>
+          <button type="button" :disabled="!rounds.length" @click="view = 'answers'">Answers</button>
+          <button type="button" @click="close">Close</button>
+        </div>
       </div>
     </div>
-  </div>
+  </template>
 </template>
 
 <style scoped>

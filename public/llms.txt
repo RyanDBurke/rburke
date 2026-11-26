@@ -69,7 +69,7 @@ Ryan's personal-best golf rounds, each one breaking the last. The current best i
 
 ## Links
 
-The Notes moderation page and API are private operational endpoints, not public site content. The "Play Thanksgiving Feud" button at the bottom of the page opens a password-protected party game Ryan hosts for family; its questions and API are private, not public site content.
+The Notes moderation page and API are private operational endpoints, not public site content.
 
 - [Website](https://rburke.dev)
 - [GitHub](https://github.com/RyanDBurke)

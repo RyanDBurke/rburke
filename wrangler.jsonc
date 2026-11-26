@@ -34,7 +34,7 @@
                        {
                            "namespace_id":  "1002",
                            "simple":  {
-                                          "limit":  20,
+                                          "limit":  5,
                                           "period":  60
                                       },
                            "name":  "FEUD_LIMITER"
