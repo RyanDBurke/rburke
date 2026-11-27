@@ -35,7 +35,7 @@ onUnmounted(() => observer?.disconnect())
   >
     <span v-if="props.marquee" class="star-track" aria-hidden="true">
       <span v-for="row in 2" :key="row" class="star-row">
-        <span v-for="star in 18" :key="star">*</span>
+        <span v-for="star in 18" :key="star">//</span>
       </span>
     </span>
     <span v-else>{{ props.label }}</span>
@@ -64,7 +64,7 @@ onUnmounted(() => observer?.disconnect())
   width: 100%;
   overflow: hidden;
   transform: none;
-  color: #E31717;
+  color: var(--accent);
   font-family: 'Oi', cursive;
   font-size: clamp(1rem, 2vw, 1.75rem);
   line-height: 2.5rem;

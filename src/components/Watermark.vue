@@ -31,7 +31,7 @@ for (const dy of [-size, 0, size]) {
   for (const dx of [-size, 0, size]) copies.push(`<use href="#w" x="${dx}" y="${dy}"/>`)
 }
 
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><defs><g id="w" font-family="Georgia, serif" font-weight="700" font-size="120" fill="#FDFBD4" fill-opacity="0.035" text-anchor="middle" dominant-baseline="central">${words.join('')}</g></defs>${copies.join('')}</svg>`
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><defs><g id="w" font-family="Georgia, serif" font-weight="700" font-size="120" fill="#F6E7CC" fill-opacity="0.035" text-anchor="middle" dominant-baseline="central">${words.join('')}</g></defs>${copies.join('')}</svg>`
 const backgroundImage = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`
 </script>
 

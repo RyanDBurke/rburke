@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// A big section heading that scrolls sideways forever, like "EXPERIENCE * EXPERIENCE *".
+// A big section heading that scrolls sideways forever, like "EXPERIENCE // EXPERIENCE //".
 // The words repeat in order, each followed by a red star. Pass `image` to repeat a picture instead.
 const props = defineProps<{ words?: string[]; image?: string }>()
 const words = props.words ?? ['']
@@ -12,7 +12,7 @@ const items = Array.from({ length: 10 }, (_, i) => words[i % words.length])
       <div v-for="row in 2" :key="row" class="row">
         <span v-for="(word, i) in items" :key="i" class="item">
           <img v-if="image" class="picture" :src="image" alt="">
-          <template v-else>{{ word }}</template> <span class="star">*</span>
+          <template v-else>{{ word }}</template> <span class="star">//</span>
         </span>
       </div>
     </div>
@@ -26,7 +26,7 @@ const items = Array.from({ length: 10 }, (_, i) => words[i % words.length])
   padding: 1rem 0 1rem;
   width: 100%;
   overflow: hidden;
-  color: #FDFBD4;
+  color: var(--cream);
   font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 700;
   line-height: 1.2;
@@ -65,11 +65,10 @@ const items = Array.from({ length: 10 }, (_, i) => words[i % words.length])
   align-items: center;
   justify-content: center;
   height: 1em;
-  color: #E31717;
+  color: var(--accent);
   font-family: 'Oi', cursive;
   font-weight: 400;
   line-height: 1;
-  transform: translateY(0.18em);
 }
 
 @keyframes ticker-scroll-right {

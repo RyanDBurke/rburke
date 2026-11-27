@@ -68,7 +68,7 @@ onUnmounted(() => {
           <div class="tech-track" aria-hidden="true">
             <div v-for="row in 2" :key="row" class="tech-row">
               <span v-for="tool in job.tech" :key="tool" class="tech-item">
-                {{ tool }} <span class="tech-star">*</span>
+                {{ tool }} <span class="tech-star">//</span>
               </span>
             </div>
           </div>
@@ -133,11 +133,11 @@ h3 {
 
 /* Same red and blue as the About section. :deep reaches the spans inside each v-html description. */
 .description :deep(.red) {
-  color: #E31717;
+  color: var(--accent);
 }
 
 .description :deep(.blue) {
-  color: #1754E3;
+  color: var(--accent-alt);
 }
 
 /* Keep each highlighted phrase (like "six years") on one line. */
@@ -184,14 +184,13 @@ a.company {
 }
 
 .tech-star {
-  color: #E31717;
+  color: var(--accent);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   height: 1em;
   font-family: 'Oi', cursive;
   line-height: 1;
-  transform: translateY(0.18em);
 }
 
 .visually-hidden {

@@ -180,7 +180,7 @@ onUnmounted(() => {
 }
 
 .carousel:focus-visible {
-  outline: 2px solid #FDFBD4;
+  outline: 2px solid var(--cream);
   outline-offset: 4px;
 }
 
@@ -216,7 +216,7 @@ onUnmounted(() => {
 }
 
 .photo:focus-visible {
-  outline: 2px solid #FDFBD4;
+  outline: 2px solid var(--cream);
   outline-offset: 4px;
 }
 
@@ -275,7 +275,7 @@ onUnmounted(() => {
   font-size: 4cqmin;
   line-height: 1.4;
   text-align: center;
-  color: #FDFBD4;
+  color: var(--cream);
 }
 
 /* The title sits above the caption, larger and in gold. */
@@ -285,7 +285,7 @@ onUnmounted(() => {
   font-size: 10cqmin; /* set on its own, so resizing the caption leaves it alone */
   font-weight: 700;
   line-height: 1.15;
-  color: #EFBF04;
+  color: var(--gold);
   text-wrap: balance;
 }
 

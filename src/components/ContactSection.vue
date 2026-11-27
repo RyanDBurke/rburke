@@ -252,7 +252,7 @@ section {
 
 .folder-scene:focus-visible,
 .file:focus-visible {
-  outline: 2px solid rgba(253, 251, 212, 0.6);
+  outline: 2px solid rgb(var(--cream-rgb) / 0.6);
   outline-offset: 0.5em;
   border-radius: 0.5em;
 }
