@@ -35,14 +35,14 @@ export function setupBeanScene(host: HTMLElement) {
   const size=box.getSize(new Vector3())
   const target=box.getCenter(new Vector3())
   controls.target.copy(target)
-  scene.add(new AmbientLight(0xffffff,1.7))
-  const key=new DirectionalLight(0xffffff,2.2)
+  scene.add(new AmbientLight(0xfff0dc,1.7))
+  const key=new DirectionalLight(0xffe2bd,2.2)
   key.position.set(3,10,8); key.castShadow=true
   key.shadow.mapSize.set(1024,1024)
   Object.assign(key.shadow.camera,{left:-6,right:6,top:7,bottom:-7,near:0.1,far:30})
   key.shadow.normalBias=0.025; key.shadow.radius=3
   scene.add(key)
-  const fill=new DirectionalLight(0xffffff,0.7); fill.position.set(-6,4,-5); scene.add(fill)
+  const fill=new DirectionalLight(0xffd6b0,0.7); fill.position.set(-6,4,-5); scene.add(fill)
   const groundGeometry=new PlaneGeometry(20,20)
   const groundMaterial=new ShadowMaterial({opacity:0.16})
   const ground=new Mesh(groundGeometry,groundMaterial)

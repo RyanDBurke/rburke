@@ -6,9 +6,17 @@ html {
 
 body {
   margin: 0;
-  --page-background: #0C0C0C;
-  background: var(--page-background);
-  color: #FDFBD4;
+  /* Warm palette: espresso background, parchment text, rust and ochre accents. */
+  --page-background: #1A110C;
+  --cream: #F6E7CC;
+  --rust: #E0603A;
+  --ochre: #E9A93E;
+  background:
+    radial-gradient(ellipse 120% 60% at 50% 0%, rgba(224, 96, 58, 0.10), transparent 70%),
+    radial-gradient(ellipse 100% 50% at 50% 100%, rgba(233, 169, 62, 0.06), transparent 70%),
+    var(--page-background);
+  background-attachment: fixed;
+  color: var(--cream);
   font-family: 'Playfair Display Variable', Georgia, serif;
 }
 

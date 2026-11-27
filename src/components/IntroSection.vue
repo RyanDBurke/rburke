@@ -12,7 +12,7 @@ const roles: { text: string; red?: string; blue?: string }[] = [
   { text: 'Diddy Kong Main', red: 'Kong' },
 ]
 
-// Splits a descriptor into pieces, tagging the red and blue words with their color.
+// Splits a descriptor into pieces, tagging the rust and ochre words with their color.
 function pieces(role: (typeof roles)[number]) {
   const colors: Record<string, string> = {}
   if (role.red) colors[role.red] = 'red'
@@ -120,13 +120,13 @@ h1 {
   opacity: var(--opacity);
 }
 
-/* Same red and blue as the rest of the site. */
+/* Same rust and ochre as the rest of the site. */
 .red {
-  color: #E31717;
+  color: var(--rust);
 }
 
 .blue {
-  color: #1754E3;
+  color: var(--ochre);
 }
 
 /* The first descriptor fades in as soon as the page loads. */

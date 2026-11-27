@@ -26,7 +26,7 @@ const items = Array.from({ length: 10 }, (_, i) => words[i % words.length])
   padding: 1rem 0 1rem;
   width: 100%;
   overflow: hidden;
-  color: #FDFBD4;
+  color: var(--cream);
   font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 700;
   line-height: 1.2;
@@ -65,7 +65,7 @@ const items = Array.from({ length: 10 }, (_, i) => words[i % words.length])
   align-items: center;
   justify-content: center;
   height: 1em;
-  color: #E31717;
+  color: var(--rust);
   font-family: 'Oi', cursive;
   font-weight: 400;
   line-height: 1;

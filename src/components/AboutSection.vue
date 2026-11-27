@@ -117,13 +117,13 @@ p {
 }
 
 .accent {
-  color: #E31717;
+  color: var(--rust);
   font-weight: 700;
   opacity: 1;
 }
 
 .blue {
-  color: #1754E3;
+  color: var(--ochre);
 }
 
 /* Small pictures that sit in the line of text, about as tall as the letters. */
@@ -149,7 +149,7 @@ p {
 }
 
 .bean-tip:focus-visible .inline-pic {
-  outline: 2px solid #FDFBD4;
+  outline: 2px solid var(--cream);
   outline-offset: 3px;
 }
 
@@ -167,7 +167,7 @@ p {
   font-weight: 400;
   line-height: 1;
   white-space: nowrap;
-  color: #0C0C0C;
+  color: var(--page-background);
   pointer-events: none;
   opacity: 0;
   transform: translate(-50%, -0.6em);
@@ -175,8 +175,8 @@ p {
   transition: opacity 0.16s steps(2), transform 0.16s steps(2);
   /* A hard, unblurred outline around the box and tail, so it reads over the text behind it. */
   filter:
-    drop-shadow(var(--px) 0 0 #0C0C0C) drop-shadow(calc(-1 * var(--px)) 0 0 #0C0C0C)
-    drop-shadow(0 var(--px) 0 #0C0C0C) drop-shadow(0 calc(-1 * var(--px)) 0 #0C0C0C);
+    drop-shadow(var(--px) 0 0 var(--page-background)) drop-shadow(calc(-1 * var(--px)) 0 0 var(--page-background))
+    drop-shadow(0 var(--px) 0 var(--page-background)) drop-shadow(0 calc(-1 * var(--px)) 0 var(--page-background));
 }
 
 .bean-tip.show .bubble {
@@ -187,7 +187,7 @@ p {
 /* A cream box with stepped, pixel-notched corners. */
 .bubble-box {
   padding: 1.1em 1.3em;
-  background: #FDFBD4;
+  background: var(--cream);
   clip-path: polygon(
     var(--px) 0, calc(100% - var(--px)) 0, calc(100% - var(--px)) var(--px), 100% var(--px),
     100% calc(100% - var(--px)), calc(100% - var(--px)) calc(100% - var(--px)),
@@ -201,7 +201,7 @@ p {
   width: calc(var(--px) * 4);
   height: calc(var(--px) * 3);
   margin-bottom: -1px; /* no seam between box and tail */
-  background: #FDFBD4;
+  background: var(--cream);
   clip-path: polygon(0 100%, 100% 100%, 100% 66%, 75% 66%, 75% 33%, 50% 33%, 50% 0, 25% 0, 25% 33%, 0 33%);
 }
 

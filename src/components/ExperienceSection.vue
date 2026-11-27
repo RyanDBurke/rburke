@@ -133,11 +133,11 @@ h3 {
 
 /* Same red and blue as the About section. :deep reaches the spans inside each v-html description. */
 .description :deep(.red) {
-  color: #E31717;
+  color: var(--rust);
 }
 
 .description :deep(.blue) {
-  color: #1754E3;
+  color: var(--ochre);
 }
 
 /* Keep each highlighted phrase (like "six years") on one line. */
@@ -184,7 +184,7 @@ a.company {
 }
 
 .tech-star {
-  color: #E31717;
+  color: var(--rust);
   display: inline-flex;
   align-items: center;
   justify-content: center;
