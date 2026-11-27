@@ -68,7 +68,7 @@ onUnmounted(() => {
           <div class="tech-track" aria-hidden="true">
             <div v-for="row in 2" :key="row" class="tech-row">
               <span v-for="tool in job.tech" :key="tool" class="tech-item">
-                {{ tool }} <span class="tech-star">*</span>
+                {{ tool }} <span class="tech-star">//</span>
               </span>
             </div>
           </div>
@@ -191,7 +191,6 @@ a.company {
   height: 1em;
   font-family: 'Oi', cursive;
   line-height: 1;
-  transform: translateY(0.18em);
 }
 
 .visually-hidden {
