@@ -57,7 +57,7 @@ Bean is Ryan's dog, a gray-and-tan French bulldog. This section shows only an in
 
 ## Film
 
-Ryan shoots film. The site shows a row of Ryan's film photos that drifts sideways on its own and can be dragged to browse, including portraits, a couple's shoot, an engagement shoot on the Brooklyn Bridge and in the rain in the West Village, a paddleboarder at sunset, a summer evening at a park pond, and travel shots from Arizona, France, Madrid, Sevilla, and a sunset swim in La Romana. Tapping a photo flips it over to show its title and the camera and film it was shot on (for example a Bronica SQ-A with Portra 800, a Fuji GA645zi, a Nikon L35AF, or an Olympus XA).
+Ryan shoots film. The site shows a row of Ryan's film photos that drifts sideways on its own and can be dragged to browse, including portraits, a couple's shoot, an engagement shoot on the Brooklyn Bridge and in the rain in the West Village, a paddleboarder at sunset, a summer evening at a park pond, and travel shots from Arizona, France, Madrid, Sevilla, the Greek island of Paros, and a sunset swim in La Romana. Tapping a photo flips it over to show its title and the camera and film it was shot on (for example a Bronica SQ-A with Portra 800, a Fuji GA645zi, a Nikon L35AF, or an Olympus XA).
 
 - [Film](https://rburke.dev/#photography)
 
