@@ -20,9 +20,9 @@ type Back = { title: string; camera: string; film: string; article?: string }
 const backs: Record<string, Back> = {
   'la-romana': { title: 'La Romana', article: 'a', camera: 'Nikon L35AF', film: 'Portra 400' },
   'west-village-2': { title: 'West Village', camera: 'Fuji X100VI', film: 'Portra 400 Emulation' },
-  'cari-paros': { title: 'Paros', camera: '', film: '' },
+  'cari-paros': { title: 'Paros', article: 'a', camera: 'Nikon L35AF', film: 'Kodak Gold 200' },
   'collin-thao': { title: 'Brooklyn Bridge', camera: 'Fuji GA645zi', film: 'Portra 400' },
-  'paros': { title: 'Paros', camera: '', film: '' },
+  'paros': { title: 'Paros', article: 'a', camera: 'Nikon L35AF', film: 'Kodak Gold 200' },
   'vine': { title: 'West Village', camera: 'Fuji GA645zi', film: 'Portra 400' },
   'fountain': { title: 'Central Park', camera: 'Fuji GA645zi', film: 'Portra 400' },
   'dami': { title: 'Dami', camera: 'Bronica-SQA', film: 'Portra 800' },
