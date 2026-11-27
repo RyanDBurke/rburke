@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ryan Burke</title>
   <meta name="theme-color" content="#1A110C">
+  <script>
+    // Apply the saved theme before the page paints, so it doesn't flash the default first.
+    try { if (localStorage.getItem('theme') === 'original') { document.documentElement.dataset.theme = 'original'; document.querySelector('meta[name="theme-color"]').content = '#0C0C0C' } } catch {}
+  </script>
   <meta name="description" content="Personal site of Ryan Burke.">
   <meta property="og:title" content="Ryan Burke">
   <meta property="og:description" content="Personal site of Ryan Burke.">

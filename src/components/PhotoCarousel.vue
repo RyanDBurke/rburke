@@ -285,7 +285,7 @@ onUnmounted(() => {
   font-size: 10cqmin; /* set on its own, so resizing the caption leaves it alone */
   font-weight: 700;
   line-height: 1.15;
-  color: var(--ochre);
+  color: var(--gold);
   text-wrap: balance;
 }
 

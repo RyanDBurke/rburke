@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import NavBar from './components/NavBar.vue'
+import ThemePicker from './components/ThemePicker.vue'
 import IntroSection from './components/IntroSection.vue'
 import AboutSection from './components/AboutSection.vue'
 import ExperienceSection from './components/ExperienceSection.vue'
@@ -12,6 +13,7 @@ import FeudSection from './components/FeudSection.vue'
 
 <template>
   <NavBar />
+  <ThemePicker />
   <main>
     <IntroSection />
     <AboutSection />

@@ -64,7 +64,7 @@ onUnmounted(() => observer?.disconnect())
   width: 100%;
   overflow: hidden;
   transform: none;
-  color: var(--rust);
+  color: var(--accent);
   font-family: 'Oi', cursive;
   font-size: clamp(1rem, 2vw, 1.75rem);
   line-height: 2.5rem;

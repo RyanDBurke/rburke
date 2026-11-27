@@ -150,7 +150,7 @@ section {
   opacity: 0.6;
   text-decoration-thickness: 0.08em;
   /* A see-through strike line, so the old scores stay easy to read. */
-  text-decoration-color: rgba(246, 231, 204, 0.4);
+  text-decoration-color: rgb(var(--cream-rgb) / 0.4);
 }
 
 /* The current best: bigger, with the score in the site's red. */
@@ -161,11 +161,11 @@ section {
 }
 
 .best .score {
-  color: var(--rust);
+  color: var(--accent);
 }
 
 .best .course {
-  color: var(--ochre);
+  color: var(--accent-alt);
 }
 
 /* The scorecard under the current best: two nines, side by side where there's room. */
@@ -188,7 +188,7 @@ section {
 .scorecard td {
   min-width: 2em;
   padding: 0.35em 0.25em;
-  border: 1px solid rgba(246, 231, 204, 0.22);
+  border: 1px solid rgb(var(--cream-rgb) / 0.22);
   text-align: center;
   line-height: 1.2;
 }
@@ -217,11 +217,11 @@ section {
 /* Out, In and Tot columns. */
 .scorecard .sum {
   font-weight: 700;
-  background: rgba(246, 231, 204, 0.06);
+  background: rgb(var(--cream-rgb) / 0.06);
 }
 
 .score-row .sum {
-  color: var(--rust);
+  color: var(--accent);
 }
 
 /* Scorecard markings around each hole's score. */

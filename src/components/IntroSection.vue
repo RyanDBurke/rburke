@@ -122,11 +122,11 @@ h1 {
 
 /* Same rust and ochre as the rest of the site. */
 .red {
-  color: var(--rust);
+  color: var(--accent);
 }
 
 .blue {
-  color: var(--ochre);
+  color: var(--accent-alt);
 }
 
 /* The first descriptor fades in as soon as the page loads. */

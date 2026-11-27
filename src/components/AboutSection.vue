@@ -117,13 +117,13 @@ p {
 }
 
 .accent {
-  color: var(--rust);
+  color: var(--accent);
   font-weight: 700;
   opacity: 1;
 }
 
 .blue {
-  color: var(--ochre);
+  color: var(--accent-alt);
 }
 
 /* Small pictures that sit in the line of text, about as tall as the letters. */

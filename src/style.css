@@ -4,17 +4,37 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  margin: 0;
-  /* Warm palette: espresso background, parchment text, rust and ochre accents. */
+/* Themes, picked with the circles in ThemePicker.vue. Warm is the default. */
+:root,
+:root[data-theme="warm"] {
+  /* Espresso background, parchment text, rust and ochre accents. */
   --page-background: #1A110C;
   --cream: #F6E7CC;
-  --rust: #E0603A;
-  --ochre: #E9A93E;
-  background:
+  --cream-rgb: 246 231 204;
+  --accent: #E0603A;
+  --accent-alt: #E9A93E;
+  --gold: #E9A93E;
+  --nav-tint: rgba(60, 28, 14, 0.25);
+  --page-glow:
     radial-gradient(ellipse 120% 60% at 50% 0%, rgba(224, 96, 58, 0.10), transparent 70%),
-    radial-gradient(ellipse 100% 50% at 50% 100%, rgba(233, 169, 62, 0.06), transparent 70%),
-    var(--page-background);
+    radial-gradient(ellipse 100% 50% at 50% 100%, rgba(233, 169, 62, 0.06), transparent 70%);
+}
+
+:root[data-theme="original"] {
+  /* Near-black background, cream text, red and blue accents. */
+  --page-background: #0C0C0C;
+  --cream: #FDFBD4;
+  --cream-rgb: 253 251 212;
+  --accent: #E31717;
+  --accent-alt: #1754E3;
+  --gold: #EFBF04;
+  --nav-tint: rgba(24, 5, 1, 0.2);
+  --page-glow: none;
+}
+
+body {
+  margin: 0;
+  background: var(--page-glow), var(--page-background);
   background-attachment: fixed;
   color: var(--cream);
   font-family: 'Playfair Display Variable', Georgia, serif;

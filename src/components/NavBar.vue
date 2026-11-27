@@ -72,8 +72,8 @@ nav {
   align-items: center;
   padding: 0.5rem 1rem;
   /* A pane of glass: faintly tinted, with a bright top edge, blurring the page behind it. */
-  background: rgba(60, 28, 14, 0.25);
-  border: 1px solid rgba(246, 231, 204, 0.25);
+  background: var(--nav-tint);
+  border: 1px solid rgb(var(--cream-rgb) / 0.25);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 4px 20px rgba(0, 0, 0, 0.15);
   -webkit-backdrop-filter: blur(3px) saturate(1.5);
   backdrop-filter: blur(3px) saturate(1.5);

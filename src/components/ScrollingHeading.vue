@@ -65,7 +65,7 @@ const items = Array.from({ length: 10 }, (_, i) => words[i % words.length])
   align-items: center;
   justify-content: center;
   height: 1em;
-  color: var(--rust);
+  color: var(--accent);
   font-family: 'Oi', cursive;
   font-weight: 400;
   line-height: 1;
